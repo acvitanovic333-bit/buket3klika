@@ -255,10 +255,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     <div id="payment-detail-virman" class="payment-detail hidden">
                         <div class="payment-info-box bank">
-                            <p>Uplatite na sljedeći račun:</p>
+                            <p>Uplatite na sljedeći račun ili skenirajte QR kod:</p>
+                            <div class="qr-code-container" style="text-align: center; margin: 1rem 0;">
+                                <img src="assets/sepa-qr.png" alt="SEPA QR Kod" style="max-width: 160px; height: auto; border: 1px solid var(--border-color); border-radius: 8px; padding: 5px; background: white;">
+                            </div>
                             <div class="iban-display">
                                 <span>IBAN</span>
-                                <strong>HR12 3456 7890 1234 5678 9</strong>
+                                <strong>HR51 2360 0003 1186 6255 4</strong>
                             </div>
                             <div class="iban-display">
                                 <span>Poziv na broj</span>
@@ -287,8 +290,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <button id="stripe-pay-btn" class="btn-stripe"><i class="fa-solid fa-lock"></i> Plati karticom</button>
                     </div>
-
-                    <button id="back-to-calendar-btn" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Natrag</button>
                 </div>
 
                 <div class="delivery-card success-card" id="step-success" style="display: none;">
@@ -387,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const address = addressInput.value.trim();
         if(address) {
             mapContainer.style.display = 'block';
-            const mapUrl = `https://maps.google.com/maps?saddr=Glavni+Kolodvor,+Zagreb&daddr=${encodeURIComponent(address + ', Zagreb')}&output=embed`;
+            const mapUrl = `https://maps.google.com/maps?saddr=Importanne+Centar,+Zagreb&daddr=${encodeURIComponent(address + ', Zagreb')}&output=embed`;
             mapContainer.innerHTML = `<iframe src="${mapUrl}"></iframe>`;
             goToCalendarBtn.style.display = 'inline-block';
         }
@@ -851,7 +852,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2 class="legal-modal-title">${legalContents[type].title}</h2>
                     <div class="legal-modal-text">${legalContents[type].text}</div>
                 `;
-                infoModal.style.display = 'block';
+                infoModal.style.display = 'flex';
                 setTimeout(() => infoModal.classList.add('active'), 10);
             }
         });

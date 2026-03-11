@@ -259,6 +259,26 @@ a {
 .product-title-overlay.top-left {
     top: 1rem;
     left: 1rem;
+}.rose-count-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.85); /* White with slight transparency for decent/subtle look */
+    font-size: 3.5rem; /* Larger font size */
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Add shadow to ensure it's readable over light flowers */
+    opacity: 0;
+    transition: var(--transition);
+    pointer-events: none;
+    z-index: 15;
+    white-space: nowrap;
+}
+
+.product-card:hover .rose-count-overlay {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05); /* Slight scale-up for extra elegance */
 }
 
 .product-info {
