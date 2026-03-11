@@ -208,24 +208,86 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
 
                 <div class="delivery-card" id="step-payment" style="display: none;">
-                    <h2>Unesite podatke kartice</h2>
-                    <form id="payment-form" class="payment-form">
-                        <div class="card-input-group">
-                            <label>Broj kartice</label>
-                            <input type="text" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                    <div class="secure-badge"><i class="fa-solid fa-shield-halved"></i> Sigurno plaćanje</div>
+                    <h2>Pregled narudžbe</h2>
+                    <div class="order-summary" id="order-summary">
+                        <div class="summary-row">
+                            <span>Proizvod</span>
+                            <strong id="summary-product">—</strong>
                         </div>
-                        <div class="card-row">
-                            <div class="card-input-group">
-                                <label>Datum isteka</label>
-                                <input type="text" id="card-expiry" placeholder="MM / YY" maxlength="7" required>
-                            </div>
-                            <div class="card-input-group">
-                                <label>CVV</label>
-                                <input type="text" id="card-cvv" placeholder="123" maxlength="3" required>
-                            </div>
+                        <div class="summary-row">
+                            <span>Dostava</span>
+                            <strong id="summary-delivery">—</strong>
                         </div>
-                        <button type="submit" class="btn-next">Plati <i class="fa-solid fa-lock"></i></button>
-                    </form>
+                        <div class="summary-row total">
+                            <span>Ukupno</span>
+                            <strong id="summary-price">—</strong>
+                        </div>
+                    </div>
+
+                    <h3 class="payment-methods-title">Odaberite način plaćanja</h3>
+                    <div class="payment-methods-grid">
+                        <div class="payment-option" data-method="pouzecem">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <span>Pouzećem</span>
+                        </div>
+                        <div class="payment-option" data-method="virman">
+                            <i class="fa-solid fa-building-columns"></i>
+                            <span>Virman</span>
+                        </div>
+                        <div class="payment-option" data-method="paypal">
+                            <i class="fa-brands fa-paypal"></i>
+                            <span>PayPal</span>
+                        </div>
+                        <div class="payment-option" data-method="stripe">
+                            <i class="fa-solid fa-credit-card"></i>
+                            <span>Kartica</span>
+                        </div>
+                    </div>
+
+                    <div id="payment-detail-pouzecem" class="payment-detail hidden">
+                        <div class="payment-info-box cash">
+                            <i class="fa-solid fa-truck"></i>
+                            <p>Platite gotovinom ili karticom prilikom preuzimanja buketa na vašim vratima.</p>
+                        </div>
+                        <button id="btn-order-pouzecem" class="btn-confirm-order"><i class="fa-solid fa-check"></i> Potvrdi narudžbu</button>
+                    </div>
+
+                    <div id="payment-detail-virman" class="payment-detail hidden">
+                        <div class="payment-info-box bank">
+                            <p>Uplatite na sljedeći račun:</p>
+                            <div class="iban-display">
+                                <span>IBAN</span>
+                                <strong>HR12 3456 7890 1234 5678 9</strong>
+                            </div>
+                            <div class="iban-display">
+                                <span>Poziv na broj</span>
+                                <strong id="virman-order-id">—</strong>
+                            </div>
+                            <p class="small-note">Nakon što zaprimimo uplatu, buket će biti poslan u odabranom terminu.</p>
+                        </div>
+                        <button id="btn-order-virman" class="btn-confirm-order"><i class="fa-solid fa-check"></i> Potvrdi narudžbu</button>
+                    </div>
+
+                    <div id="payment-detail-paypal" class="payment-detail hidden">
+                        <div class="payment-info-box paypal">
+                            <i class="fa-brands fa-paypal" style="font-size: 2rem; color: #003087;"></i>
+                            <p>Pošaljite uplatu na naš PayPal račun:</p>
+                            <strong class="paypal-email">acvitanovic333@gmail.com</strong>
+                            <p class="small-note">U opis uplate upišite svoj kod narudžbe.</p>
+                        </div>
+                        <button id="btn-order-paypal" class="btn-confirm-order"><i class="fa-solid fa-check"></i> Potvrdi narudžbu</button>
+                    </div>
+
+                    <div id="payment-detail-stripe" class="payment-detail hidden">
+                        <div class="payment-info-box stripe">
+                            <i class="fa-solid fa-lock" style="font-size: 1.5rem; color: #635bff;"></i>
+                            <p>Preusmjerit ćemo vas na sigurnu Stripe stranicu za plaćanje karticom.</p>
+                            <p class="small-note">Vaši kartični podaci su potpuno zaštićeni.</p>
+                        </div>
+                        <button id="stripe-pay-btn" class="btn-stripe"><i class="fa-solid fa-lock"></i> Plati karticom</button>
+                    </div>
+
                     <button id="back-to-calendar-btn" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Natrag</button>
                 </div>
 
@@ -273,6 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeslotsGrid = document.getElementById('timeslots-grid');
     const selectedDateDisplay = document.getElementById('selected-date-display');
     const paymentForm = document.getElementById('payment-form');
+    const stripePayBtn = document.getElementById('stripe-pay-btn');
 
     // Make all products clickable
     document.querySelectorAll('.product-card').forEach(card => {
@@ -350,63 +413,218 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('active');
     });
 
-    paymentForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Generate Order Code
-        const orderId = 'BK-' + Math.floor(100000 + Math.random() * 900000);
-        const today = new Date().toLocaleDateString('hr-HR');
-        const deliveryAddress = addressInput.value.trim();
-        
-        // Add to global orders with enriched data
+    // Initialize Stripe with your Publishable Key
+    // IMPORTANT: Replace this with your actual Stripe Publishable Key
+    const stripePublishableKey = 'pk_test_PLACEHOLDER';
+    let stripeInstance = null;
+    if (typeof Stripe !== 'undefined' && stripePublishableKey !== 'pk_test_PLACEHOLDER') {
+        stripeInstance = Stripe(stripePublishableKey);
+    }
+
+    // Populate order summary when payment step loads
+    function populateOrderSummary() {
+        const summaryProduct = document.getElementById('summary-product');
+        const summaryDelivery = document.getElementById('summary-delivery');
+        const summaryPrice = document.getElementById('summary-price');
+        if (summaryProduct) summaryProduct.textContent = currentSelectedProduct || 'Buket Ruža';
+        if (summaryDelivery) summaryDelivery.textContent = currentSelectedTime || '—';
+        if (summaryPrice) summaryPrice.textContent = currentSelectedPrice || '—';
+    }
+
+    // Override step transition to populate summary
+    const origShowTimeSlots = showTimeSlots;
+
+    // --- Payment Method Selection Logic ---
+    const paymentOptions = document.querySelectorAll('.payment-option');
+    const paymentDetails = document.querySelectorAll('.payment-detail');
+
+    paymentOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            // Toggle active state on options
+            paymentOptions.forEach(o => o.classList.remove('active'));
+            option.classList.add('active');
+
+            // Show corresponding detail
+            const method = option.dataset.method;
+            paymentDetails.forEach(d => d.classList.add('hidden'));
+            const detail = document.getElementById(`payment-detail-${method}`);
+            if (detail) detail.classList.remove('hidden');
+
+            // Pre-fill virman order ID
+            if (method === 'virman') {
+                const virmanId = document.getElementById('virman-order-id');
+                if (virmanId) virmanId.textContent = 'BK-' + Math.floor(100000 + Math.random() * 900000);
+            }
+        });
+    });
+
+    // --- Confirm buttons for non-Stripe methods ---
+    function setupConfirmButton(btnId, paymentMethodLabel) {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+            btn.addEventListener('click', () => {
+                const orderId = (paymentMethodLabel === 'Virman') 
+                    ? document.getElementById('virman-order-id').textContent 
+                    : 'BK-' + Math.floor(100000 + Math.random() * 900000);
+                const deliveryAddress = addressInput.value.trim();
+                completePurchase(orderId, deliveryAddress, paymentMethodLabel);
+            });
+        }
+    }
+
+    setupConfirmButton('btn-order-pouzecem', 'Pouzećem');
+    setupConfirmButton('btn-order-virman', 'Virman');
+    setupConfirmButton('btn-order-paypal', 'PayPal');
+
+    // --- Stripe Button Handler ---
+    if (stripePayBtn) {
+        stripePayBtn.addEventListener('click', async () => {
+            const orderId = 'BK-' + Math.floor(100000 + Math.random() * 900000);
+            const deliveryAddress = addressInput.value.trim();
+
+            localStorage.setItem('pendingOrder', JSON.stringify({
+                id: orderId,
+                product: currentSelectedProduct || 'Ruže',
+                price: currentSelectedPrice,
+                address: deliveryAddress,
+                deliveryTime: currentSelectedTime,
+                date: new Date().toLocaleDateString('hr-HR')
+            }));
+
+            if (!stripeInstance) {
+                completePurchase(orderId, deliveryAddress, 'Kartica (demo)');
+                return;
+            }
+
+            stripePayBtn.disabled = true;
+            stripePayBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preusmjeravanje...';
+
+            try {
+                const response = await fetch('/api/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        product_name: currentSelectedProduct || 'Buket Ruža',
+                        price: currentSelectedPrice,
+                        order_id: orderId,
+                        delivery_address: deliveryAddress,
+                        delivery_time: currentSelectedTime
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.sessionId) {
+                    await stripeInstance.redirectToCheckout({ sessionId: data.sessionId });
+                } else {
+                    throw new Error(data.error || 'Nepoznata greška');
+                }
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert('Greška pri pokretanju plaćanja: ' + error.message);
+                stripePayBtn.disabled = false;
+                stripePayBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Plati karticom';
+            }
+        });
+    }
+
+    // Handle successful payment return from Stripe
+    function handlePaymentReturn() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentStatus = urlParams.get('payment');
+        const returnOrderId = urlParams.get('order_id');
+
+        if (paymentStatus === 'success' && returnOrderId) {
+            const pendingOrder = JSON.parse(localStorage.getItem('pendingOrder'));
+            if (pendingOrder) {
+                globalOrders.unshift({
+                    ...pendingOrder,
+                    status: 'Zaprimljeno'
+                });
+                saveOrders();
+                localStorage.removeItem('pendingOrder');
+
+                // Show success in modal
+                modal.classList.add('active');
+                resetToStepAddress();
+                stepAddress.style.display = 'none';
+                stepSuccess.style.display = 'block';
+                const successMessage = document.getElementById('success-message');
+                successMessage.innerHTML = `Hvala vam na narudžbi! Vaš buket će biti dostavljen: <strong>${pendingOrder.deliveryTime}</strong> na adresu <strong>${pendingOrder.address}</strong>.<br><br>Vaš kod narudžbe za praćenje: <strong>${pendingOrder.id}</strong>`;
+
+                // Setup email
+                setupEmailConfirmation(pendingOrder.id, pendingOrder.address, pendingOrder.deliveryTime);
+            }
+
+            // Clean URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        } else if (paymentStatus === 'cancelled') {
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    }
+
+    // Complete purchase flow for all methods
+    function completePurchase(orderId, deliveryAddress, paymentMethod) {
         globalOrders.unshift({
             id: orderId,
             product: currentSelectedProduct || 'Ruže',
             status: 'Zaprimljeno',
-            date: today,
+            date: new Date().toLocaleDateString('hr-HR'),
             price: currentSelectedPrice,
             address: deliveryAddress,
-            deliveryTime: currentSelectedTime
+            deliveryTime: currentSelectedTime,
+            paymentMethod: paymentMethod || 'N/A'
         });
         saveOrders();
 
-        // Update Success Screen with the new code
         const successMessage = document.getElementById('success-message');
-        successMessage.innerHTML = `Hvala vam na narudžbi. Vaš buket će biti dostavljen: <strong>${currentSelectedTime}</strong> na adresu <strong>${deliveryAddress}</strong>.<br><br>Vaš kod narudžbe za praćenje: <strong>${orderId}</strong>`;
+        successMessage.innerHTML = `Hvala vam na narudžbi! Vaš buket će biti dostavljen: <strong>${currentSelectedTime}</strong> na adresu <strong>${deliveryAddress}</strong>.<br><br>Način plaćanja: <strong>${paymentMethod}</strong><br>Vaš kod narudžbe za praćenje: <strong>${orderId}</strong>`;
 
-        // Mocking transaction
         stepPayment.style.display = 'none';
         stepSuccess.style.display = 'block';
 
-        // Email confirmation logic
+        setupEmailConfirmation(orderId, deliveryAddress, currentSelectedTime);
+
+        if (adminDashboardView && !adminDashboardView.classList.contains('hidden')) {
+            renderAdminOrders();
+        }
+    }
+
+    function setupEmailConfirmation(orderId, deliveryAddress, deliveryTime) {
         const sendEmailBtn = document.getElementById('send-email-btn');
         const emailInput = document.getElementById('confirm-email');
         const emailSentMsg = document.getElementById('email-sent-msg');
         
         if (sendEmailBtn) {
+            // Reset state for new order
+            sendEmailBtn.disabled = false;
+            sendEmailBtn.innerHTML = 'Pošalji';
+            if (emailInput) { emailInput.disabled = false; emailInput.value = ''; }
+            if (emailSentMsg) emailSentMsg.classList.add('hidden');
+
             sendEmailBtn.onclick = () => {
                 const email = emailInput.value.trim();
                 if (email.includes('@')) {
-                    // Start loading state
                     sendEmailBtn.disabled = true;
                     sendEmailBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Šaljem...';
                     
-                    // --- EmailJS Integration ---
                     const templateParams = {
-                        email: email, // Promijenjeno iz to_email kako bi odgovaralo slici
+                        email: email,
                         order_id: orderId,
                         product_name: currentSelectedProduct || 'Prekrasan Buket',
                         delivery_address: deliveryAddress,
-                        delivery_time: currentSelectedTime,
+                        delivery_time: deliveryTime,
                         price: currentSelectedPrice,
                         from_email: "acvitanovic333@gmail.com"
                     };
 
-                    // SLANJE PRAVOG MAILA
                     emailjs.send('service_1mrp9v8', 'template_h36aac9', templateParams)
                         .then(function(response) {
                            console.log('SUCCESS!', response.status, response.text);
-                           showEmailSuccess(email);
+                           sendEmailBtn.innerHTML = '<i class="fa-solid fa-check"></i> Poslano';
+                           emailInput.disabled = true;
+                           emailSentMsg.classList.remove('hidden');
+                           emailSentMsg.innerHTML = `Potvrda je uspješno poslana na <strong>${email}</strong>!<br><small>Hvala što koristite Buket3Klika.</small>`;
                         }, function(error) {
                            console.log('FAILED...', error);
                            alert('Greška pri slanju: ' + (error.text || 'Nepoznata greška') + '. Provjerite Service ID i Template ID.');
@@ -418,53 +636,57 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
         }
+    }
 
-        function showEmailSuccess(email) {
-            sendEmailBtn.innerHTML = '<i class="fa-solid fa-check"></i> Poslano';
-            emailInput.disabled = true;
-            emailSentMsg.classList.remove('hidden');
-            emailSentMsg.innerHTML = `Potvrda je uspješno poslana na <strong>${email}</strong>!<br><small>Hvala što koristite Buket3Klika.</small>`;
-        }
-
-        // Refresh admin orders if logged in
-        if (adminDashboardView && !adminDashboardView.classList.contains('hidden')) {
-            renderAdminOrders();
-        }
-    });
+    // Check for payment return on page load
+    handlePaymentReturn();
 
     function renderCalendar() {
         calendarWrapper.innerHTML = '';
         const now = new Date();
-        const daysToShow = 31;
+        const daysToShow = 14; // Showing next 2 weeks for a cleaner look
         
-        const grid = document.createElement('div');
-        grid.className = 'calendar-grid';
+        const sliderContainer = document.createElement('div');
+        sliderContainer.className = 'date-slider-container';
+
+        const slider = document.createElement('div');
+        slider.className = 'date-slider';
+
+        let firstDayEl = null;
 
         for (let i = 0; i < daysToShow; i++) {
             const date = new Date();
             date.setDate(now.getDate() + i);
             
             const dayEl = document.createElement('div');
-            dayEl.className = 'calendar-day';
+            dayEl.className = 'date-item';
             const dayName = date.toLocaleDateString('hr-HR', { weekday: 'short' });
             const dayNum = date.getDate();
             const monthName = date.toLocaleDateString('hr-HR', { month: 'short' });
 
             dayEl.innerHTML = `
-                <span class="day-name">${dayName}</span>
-                <span class="day-num">${dayNum}</span>
-                <span class="month-name">${monthName}</span>
+                <span class="date-item-day">${dayName}</span>
+                <span class="date-item-num">${dayNum}</span>
+                <span class="date-item-month">${monthName}</span>
             `;
 
             dayEl.addEventListener('click', () => {
-                document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+                document.querySelectorAll('.date-item').forEach(d => d.classList.remove('selected'));
                 dayEl.classList.add('selected');
                 showTimeSlots(date);
             });
 
-            grid.appendChild(dayEl);
+            if (i === 0) {
+                dayEl.classList.add('selected');
+                firstDayEl = dayEl;
+                // Defer initial time slots to ensure timeslotsWrapper is ready
+                setTimeout(() => showTimeSlots(date), 0);
+            }
+
+            slider.appendChild(dayEl);
         }
-        calendarWrapper.appendChild(grid);
+        sliderContainer.appendChild(slider);
+        calendarWrapper.appendChild(sliderContainer);
     }
 
     function showTimeSlots(date) {
@@ -472,25 +694,42 @@ document.addEventListener('DOMContentLoaded', () => {
         timeslotsGrid.innerHTML = '';
         timeslotsWrapper.style.display = 'block';
 
+        const isToday = new Date().toDateString() === date.toDateString();
+        const currentHour = new Date().getHours();
+
         for (let hour = 9; hour <= 21; hour++) {
+            // If today, only show future hours + 1 hour buffer
+            if (isToday && hour <= currentHour + 1) continue;
+
             const slot = document.createElement('div');
-            slot.className = 'time-slot';
-            slot.innerText = `${hour}:00 h`;
+            slot.className = 'time-btn';
+            slot.innerHTML = `
+                <span class="time-text">${hour}:00</span>
+                <span class="time-suffix">h</span>
+            `;
             
             slot.addEventListener('click', () => {
-                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                document.querySelectorAll('.time-btn').forEach(s => s.classList.remove('selected'));
                 slot.classList.add('selected');
                 
-                currentSelectedTime = `${selectedDateDisplay.innerText} u ${slot.innerText}`;
+                currentSelectedTime = `${selectedDateDisplay.innerText} u ${hour}:00 h`;
 
-                // Transition to Payment Step
+                // Quick visual feedback then transition
+                slot.style.backgroundColor = 'var(--accent-gold)';
+                slot.style.color = 'white';
+                
                 setTimeout(() => {
+                    populateOrderSummary();
                     stepCalendar.style.display = 'none';
                     stepPayment.style.display = 'block';
-                }, 300);
+                }, 400);
             });
 
             timeslotsGrid.appendChild(slot);
+        }
+
+        if (timeslotsGrid.children.length === 0) {
+            timeslotsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 1rem;">Nema više dostupnih termina za danas.</p>';
         }
     }
     
@@ -502,29 +741,104 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Footer Links Logic ---
     const footerLinks = document.querySelectorAll('.footer-link');
-    const textModal = document.createElement('div');
-    textModal.id = 'text-modal-content';
-    textModal.className = 'text-modal';
     
-    // Insert text modal directly into the main modal wrapper
-    modal.appendChild(textModal);
-    
-    const contents = {
+    // --- Standalone Info Modal for Legal Content ---
+    const infoModal = document.createElement('div');
+    infoModal.id = 'info-modal';
+    infoModal.className = 'modal info-modal';
+    infoModal.innerHTML = `
+        <div class="modal-bg"></div>
+        <div class="info-modal-content">
+            <button class="close-info-modal"><i class="fa-solid fa-xmark"></i></button>
+            <div id="info-modal-body"></div>
+        </div>
+    `;
+    document.body.appendChild(infoModal);
+
+    const infoModalBody = document.getElementById('info-modal-body');
+    const closeInfoModalBtn = infoModal.querySelector('.close-info-modal');
+
+    const legalContents = {
         'sitemap': {
             title: 'Mapa weba',
-            text: 'Ovdje možete pronaći strukturu naše web stranice radi lakšeg snalaženja. Pregled svih stranica, kategorije vrhunskih buketa i ostale važne informacije organizirane su radi vaše udobnosti.'
+            text: `
+                <div class="legal-section">
+                    <h3>Glavna navigacija</h3>
+                    <ul>
+                        <li>Naslovnica - Pregled tjedne ponude</li>
+                        <li>Korisnički račun - Praćenje narudžbi</li>
+                        <li>Trgovina - Svi cvjetni aranžmani</li>
+                    </ul>
+                    <h3>Kategorije proizvoda</h3>
+                    <ul>
+                        <li>Klasične Ruže (Crvene, Roze, Bijele)</li>
+                        <li>Premium Buketi (Prity Brigitte, Grand Amour)</li>
+                        <li>Ekskluzivna Pakiranja</li>
+                    </ul>
+                    <h3>Korisnička podrška</h3>
+                    <ul>
+                        <li>Dostava i termini</li>
+                        <li>Česta pitanja (FAQ)</li>
+                        <li>Kontakt obrazac</li>
+                    </ul>
+                    <h3>Pravne informacije</h3>
+                    <ul>
+                        <li>Uvjeti korištenja</li>
+                        <li>Pravila privatnosti</li>
+                        <li>Izjava o pristupačnosti</li>
+                    </ul>
+                </div>
+            `
         },
         'accessibility': {
             title: 'Izjava o pristupačnosti',
-            text: 'Kupi najbolji buket na tržištu<br>u samo tri klika.'
+            text: `
+                <div class="legal-section">
+                    <p>Buket3Klika nastoji osigurati pristupačnost svoje web stranice u skladu sa Zakonom o pristupačnosti mrežnih stranica i programskih rješenja za pokretne uređaje tijela javnog sektora Republike Hrvatske.</p>
+                    <h3>Standardi pristupačnosti</h3>
+                    <p>Naša stranica implementira sljedeće značajke:</p>
+                    <ul>
+                        <li>Prilagođeni kontrast boja za bolju čitljivost teksta.</li>
+                        <li>Mogućnost navigacije putem tipkovnice.</li>
+                        <li>Jasna i konzistentna struktura naslova (H1-H4).</li>
+                        <li>Opisni alt tekstovi za sve ključne slike proizvoda.</li>
+                    </ul>
+                    <h3>Povratne informacije</h3>
+                    <p>Ako primijetite bilo kakve poteškoće u korištenju naše stranice, molimo vas da nas kontaktirate putem e-maila kako bismo mogli dodatno unaprijediti vaše iskustvo.</p>
+                </div>
+            `
         },
         'terms': {
             title: 'Uvjeti korištenja',
-            text: 'Korištenjem web stranice Buket3klika pristajete na naše opće uvjete kupnje. Sve naše cijene su finalne, a dostavna mreža osigurava premium kvalitetu isporuke na vaš prag.'
+            text: `
+                <div class="legal-section">
+                    <p>Dobrodošli na Buket3Klika. Korištenjem naših usluga pristajete na sljedeće uvjete:</p>
+                    <h3>1. Proces kupnje</h3>
+                    <p>Kupnja se smatra obavljenom u trenutku uspješne potvrde transakcije. Sve cijene na stranici su iskazane u eurima (€) i uključuju PDV.</p>
+                    <h3>2. Dostava i isporuka</h3>
+                    <p>Dostava se obavlja na području grada Zagreba i okolice prema terminima odabranim u kalendaru. U slučaju nemogućnosti isporuke zbog krive adrese, zadržavamo pravo dodatne naplate ponovljene dostave.</p>
+                    <h3>3. Povrat i reklamacije</h3>
+                    <p>Budući da se radi o svježem cvijeću (pokvarljiva roba), povrat nije moguć prema Zakonu o zaštiti potrošača, osim u slučaju vidljivih oštećenja prilikom primopredaje.</p>
+                    <h3>4. Odgovornost</h3>
+                    <p>Buket3Klika nije odgovoran za privremenu nedostupnost stranice uzrokovanu tehničkim poteškoćama izvan naše kontrole.</p>
+                </div>
+            `
         },
         'privacy': {
-            title: 'Pravila privatnosti',
-            text: 'Vaša privatnost nam je najvažnija. Podaci koje unesete (poput željene adrese za dostavu) koriste se isključivo za uspješnu isporuku iznenađenja te se strogo čuvaju i ne dijele dalje.'
+            title: 'Pravila privatnosti i GDPR',
+            text: `
+                <div class="legal-section">
+                    <p>Vaša privatnost nam je prioritet. Ova pravila objašnjavaju kako prikupljamo i štitimo vaše podatke.</p>
+                    <h3>1. Prikupljanje podataka</h3>
+                    <p>Prikupljamo samo podatke nužne za isporuku: ime, prezime, adresu dostave i e-mail adresu za potvrdu narudžbe.</p>
+                    <h3>2. Sigurnost plaćanja</h3>
+                    <p>Vaši kartični podaci se ne pohranjuju na našim serverima. Koristimo najnaprednije enkripcijske protokole za obradu transakcija.</p>
+                    <h3>3. Kolačići (Cookies)</h3>
+                    <p>Koristimo kolačiće kako bismo zapamtili vaše odabire (npr. spremljene narudžbe u lokalnoj pohrani) i poboljšali rad stranice.</p>
+                    <h3>4. Vaša prava</h3>
+                    <p>U svakom trenutku imate pravo zatražiti uvid u vaše podatke, njihovu ispravku ili potpuno brisanje iz našeg sustava.</p>
+                </div>
+            `
         }
     };
 
@@ -532,38 +846,24 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const type = link.getAttribute('data-type');
-            if(contents[type]) {
-                textModal.innerHTML = `
-                    <button class="close-modal text-close" id="close-text-modal"><i class="fa-solid fa-xmark"></i></button>
-                    <h2>${contents[type].title}</h2>
-                    <p>${contents[type].text}</p>
+            if (legalContents[type]) {
+                infoModalBody.innerHTML = `
+                    <h2 class="legal-modal-title">${legalContents[type].title}</h2>
+                    <div class="legal-modal-text">${legalContents[type].text}</div>
                 `;
-                
-                // Sakrij elemente za dostavu
-                document.querySelector('.modal-content').style.display = 'none';
-                
-                // Očisti sliku iz pozadine
-                modalBg.style.backgroundImage = 'none';
-                modalBg.style.backgroundColor = 'rgba(0,0,0,0.8)';
-                
-                // Prikaži tekstualni prozor
-                textModal.style.display = 'block';
-                modal.classList.add('active');
-
-                // Zatvaranje ovog specifičnog prozora
-                document.getElementById('close-text-modal').addEventListener('click', () => {
-                    modal.classList.remove('active');
-                });
+                infoModal.style.display = 'block';
+                setTimeout(() => infoModal.classList.add('active'), 10);
             }
         });
     });
 
-    // Kad se zatvara modal na bilo koji način (klik na sivilo ili stari 'X') vrati prikaze na staro
-    modal.addEventListener('transitionend', function(e) {
-        if(!modal.classList.contains('active') && e.propertyName === 'opacity') {
-             document.querySelector('.modal-content').style.display = 'flex';
-             textModal.style.display = 'none';
-        }
+    closeInfoModalBtn.addEventListener('click', () => {
+        infoModal.classList.remove('active');
+        setTimeout(() => infoModal.style.display = 'none', 300);
+    });
+
+    infoModal.querySelector('.modal-bg').addEventListener('click', () => {
+        closeInfoModalBtn.click();
     });
 
     // Order Tracking Logic
