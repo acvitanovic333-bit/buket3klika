@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const pass = adminPasswordInput.value;
             const remember = document.getElementById('admin-remember').checked;
 
-            if (user === 'buket3klik' && pass === 'antonio2000') {
+            if (user === 'buket3klika' && pass === 'antonio2000') {
                 if (remember) {
                     localStorage.setItem('adminUser', user);
                     localStorage.setItem('adminPass', pass);
@@ -204,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h3>Dostupni termini za <span id="selected-date-display">...</span></h3>
                         <div class="timeslots-grid" id="timeslots-grid"></div>
                     </div>
-                    <button id="back-to-address-btn" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Natrag</button>
                 </div>
 
                 <div class="delivery-card" id="step-payment" style="display: none;">
@@ -400,15 +399,19 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCalendar();
     });
 
-    backToAddressBtn.addEventListener('click', () => {
-        stepCalendar.style.display = 'none';
-        stepAddress.style.display = 'block';
-    });
+    if (backToAddressBtn) {
+        backToAddressBtn.addEventListener('click', () => {
+            stepCalendar.style.display = 'none';
+            stepAddress.style.display = 'block';
+        });
+    }
 
-    backToCalendarBtn.addEventListener('click', () => {
-        stepPayment.style.display = 'none';
-        stepCalendar.style.display = 'block';
-    });
+    if (backToCalendarBtn) {
+        backToCalendarBtn.addEventListener('click', () => {
+            stepPayment.style.display = 'none';
+            stepCalendar.style.display = 'block';
+        });
+    }
 
     finishBtn.addEventListener('click', () => {
         modal.classList.remove('active');
@@ -551,7 +554,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 stepAddress.style.display = 'none';
                 stepSuccess.style.display = 'block';
                 const successMessage = document.getElementById('success-message');
-                successMessage.innerHTML = `Hvala vam na narudžbi! Vaš buket će biti dostavljen: <strong>${pendingOrder.deliveryTime}</strong> na adresu <strong>${pendingOrder.address}</strong>.<br><br>Vaš kod narudžbe za praćenje: <strong>${pendingOrder.id}</strong>`;
+                successMessage.innerHTML = `
+                    Hvala vam na narudžbi! Vaš buket će biti dostavljen: <strong>${pendingOrder.deliveryTime}</strong> na adresu <strong>${pendingOrder.address}</strong>.<br><br>
+                    Svoj buket možete pratiti pomoću koda:<br>
+                    <span class="order-id-display">${pendingOrder.id}</span>
+                `;
 
                 // Setup email
                 setupEmailConfirmation(pendingOrder.id, pendingOrder.address, pendingOrder.deliveryTime);
@@ -579,7 +586,12 @@ document.addEventListener('DOMContentLoaded', () => {
         saveOrders();
 
         const successMessage = document.getElementById('success-message');
-        successMessage.innerHTML = `Hvala vam na narudžbi! Vaš buket će biti dostavljen: <strong>${currentSelectedTime}</strong> na adresu <strong>${deliveryAddress}</strong>.<br><br>Način plaćanja: <strong>${paymentMethod}</strong><br>Vaš kod narudžbe za praćenje: <strong>${orderId}</strong>`;
+        successMessage.innerHTML = `
+            Hvala vam na narudžbi! Vaš buket će biti dostavljen: <strong>${currentSelectedTime}</strong> na adresu <strong>${deliveryAddress}</strong>.<br><br>
+            Način plaćanja: <strong>${paymentMethod}</strong><br><br>
+            Svoj buket možete pratiti pomoću koda:<br>
+            <span class="order-id-display">${orderId}</span>
+        `;
 
         stepPayment.style.display = 'none';
         stepSuccess.style.display = 'block';
@@ -615,11 +627,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         product_name: currentSelectedProduct || 'Prekrasan Buket',
                         delivery_address: deliveryAddress,
                         delivery_time: deliveryTime,
-                        price: currentSelectedPrice,
+                        price: (currentSelectedPrice || '').replace(/^Od\s+/i, ''),
                         from_email: "acvitanovic333@gmail.com"
                     };
 
-                    emailjs.send('service_1mrp9v8', 'template_h36aac9', templateParams)
+                    emailjs.send('service_eoswglo', 'template_1f1nsi8', templateParams)
                         .then(function(response) {
                            console.log('SUCCESS!', response.status, response.text);
                            sendEmailBtn.innerHTML = '<i class="fa-solid fa-check"></i> Poslano';
