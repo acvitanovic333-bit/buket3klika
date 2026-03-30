@@ -277,6 +277,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p>Pošaljite uplatu na naš PayPal račun:</p>
                             <strong class="paypal-email">prodaja.buket3klika@gmail.com</strong>
                             <p class="small-note">U opis uplate upišite svoj kod narudžbe.</p>
+                            <p class="small-note" style="margin-top: 0.5rem; color: #be185d; font-weight: 600;">
+                                <i class="fa-solid fa-circle-info"></i> Kod narudžbe će se pojaviti nakon što kliknete "Potvrdi narudžbu".
+                            </p>
                         </div>
                         <button id="btn-order-paypal" class="btn-confirm-order"><i class="fa-solid fa-check"></i> Potvrdi narudžbu</button>
                     </div>
