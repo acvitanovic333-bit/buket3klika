@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buket3klika | Kupi najbolji buket na tržištu u samo tri klika</title>
     <meta name="description" content="Sve je počelo s klasičnim buketom najljepših ruža koje smo mogli pronaći u svim našim omiljenim bojama.">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.6">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <nav class="nav-top">
-        <div class="logo-rose">
+        <a href="index.html" class="logo-rose" style="text-decoration: none;">
             <img src="assets/rose-logo.svg" alt="Buket3klika Logo">
             <span>Buket3klika</span>
-        </div>
+        </a>
         <div class="account-actions">
             <button class="account-btn" aria-label="Korisnički račun">
                 <i class="fa-regular fa-user"></i>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="product-info">
                     <span class="tag"><i class="fa-solid fa-fire"></i> Najprodavanije</span>
-                    <span class="price">Od €96.00</span>
+                    <span class="price">Od €56.00</span>
                 </div>
             </article>
             <article class="product-card">
@@ -58,7 +58,7 @@
                 </div>
                 <div class="product-info">
                     <span class="tag"><i class="fa-solid fa-fire"></i> Najprodavanije</span>
-                    <span class="price">Od €96.00</span>
+                    <span class="price">Od €56.00</span>
                 </div>
             </article>
              <article class="product-card">
@@ -70,7 +70,7 @@
                 </div>
                 <div class="product-info">
                     <span class="tag"><i class="fa-solid fa-fire"></i> Najprodavanije</span>
-                    <span class="price">Od €96.00</span>
+                    <span class="price">Od €56.00</span>
                 </div>
             </article>
         </section>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="product-info">
                     <span class="tag"><i class="fa-solid fa-fire"></i> Najprodavanije</span>
-                    <span class="price">Od €126.00</span>
+                    <span class="price">Od €76.00</span>
                 </div>
             </article>
             <article class="product-card large">
@@ -98,7 +98,7 @@
                 </div>
                 <div class="product-info">
                     <span class="tag"><i class="fa-solid fa-fire"></i> Najprodavanije</span>
-                    <span class="price">Od €496.00</span>
+                    <span class="price">Od €296.00</span>
                 </div>
             </article>
         </section>
@@ -114,7 +114,7 @@
                 </div>
                 <div class="product-info">
                     <span class="tag"><i class="fa-solid fa-fire"></i> Najprodavanije</span>
-                    <span class="price">Od €86.00</span>
+                    <span class="price">Od €51.00</span>
                 </div>
             </article>
 
@@ -127,7 +127,7 @@
                 </div>
                 <div class="product-info">
                     <span class="tag"><i class="fa-solid fa-fire"></i> Najprodavanije</span>
-                    <span class="price">Od €86.00</span>
+                    <span class="price">Od €51.00</span>
                 </div>
             </article>
 
@@ -140,7 +140,7 @@
                 </div>
                 <div class="product-info">
                     <span class="tag"><i class="fa-solid fa-fire"></i> Najprodavanije</span>
-                    <span class="price">Od €86.00</span>
+                    <span class="price">Od €51.00</span>
                 </div>
             </article>
         </section>
@@ -156,7 +156,7 @@
                 </div>
                 <div class="product-info">
                     <span></span>
-                    <span class="price">Od €246.00</span>
+                    <span class="price">Od €146.00</span>
                 </div>
             </article>
 
@@ -169,7 +169,7 @@
                 </div>
                 <div class="product-info">
                     <span></span>
-                    <span class="price">Od €246.00</span>
+                    <span class="price">Od €146.00</span>
                 </div>
             </article>
         </section>
@@ -255,11 +255,10 @@
 
     <!-- Admin Hidden Modal -->
     <div id="admin-modal" class="modal">
-        <div class="modal-content admin-modal-content">
-            <span class="close-modal" id="close-admin-modal">&times;</span>
-            
+        <div class="modal-content admin-modal-content" style="padding-top: 4rem !important;">
             <!-- Login View -->
-            <div id="admin-login-view">
+            <div id="admin-login-view" style="position: relative; width: 100%; height: 100%;">
+                <button class="close-modal" id="close-admin-modal"><i class="fa-solid fa-xmark"></i></button>
                 <h2>Admin Prijava</h2>
                 <div class="admin-login-form">
                     <input type="text" id="admin-username" placeholder="Korisničko ime">
@@ -288,6 +287,19 @@
         </div>
     </div>
 
+    <!-- Warning Modal -->
+    <div id="warning-modal" class="modal">
+        <div class="modal-bg" onclick="closeWarning()"></div>
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="delivery-card">
+                <i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; color: var(--accent-red); margin-bottom: 1.5rem;"></i>
+                <h2>Dostava ograničena</h2>
+                <p id="warning-text" style="margin-bottom: 2rem; line-height: 1.6; color: var(--text-secondary);">Ispričavamo se, ali kupnja i dostava su trenutno dozvoljeni samo u Gradu Zagrebu i Zagrebačkoj županiji.</p>
+                <button class="btn-next" onclick="closeWarning()" style="width: 100%;">U redu</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
@@ -297,6 +309,6 @@
           });
        })();
     </script>
-    <script src="script.js?v=1.1"></script>
+    <script src="script.js?v=1.8"></script>
 </body>
 </html>

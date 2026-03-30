@@ -637,16 +637,46 @@ a {
 }
 
 /* One-Click Date & Time Selection Styles */
-.date-slider-container {
+.calendar-nav-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     margin: 1.5rem 0;
+}
+
+.nav-arrow {
+    background: white;
+    border: 1px solid var(--border-color);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    flex-shrink: 0;
+}
+
+.nav-arrow:hover {
+    background: var(--text-primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+.date-slider-container {
+    flex-grow: 1;
     position: relative;
     padding: 0.5rem 0;
+    overflow: hidden;
 }
 
 .date-slider {
     display: flex;
+    width: max-content;
     gap: 1rem;
-    overflow-x: auto;
     padding: 0.5rem 5px;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
@@ -1258,19 +1288,44 @@ a {
 }
 
 .admin-modal-content {
-    position: fixed;
+    position: fixed !important;
     top: 0;
-    left: -100%;
+    left: 100%;
     width: 100vw;
     height: 100vh;
     background: var(--white);
-    padding: 4rem 2rem !important;
+    padding: 5rem 2.5rem !important;
     text-align: left;
     transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 0;
     display: flex;
     flex-direction: column;
-    z-index: 1001;
+    z-index: 10000;
+}
+
+#close-admin-modal {
+    position: absolute !important;
+    top: -0.2rem;
+    right: 0rem;
+    color: #1e293b !important;
+    font-size: 2rem;
+    background: #f1f5f9;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    z-index: 10001;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+#close-admin-modal:hover {
+    background: #e2e8f0;
+    transform: rotate(90deg) scale(1.1);
 }
 
 @media (min-width: 768px) {
@@ -1681,5 +1736,14 @@ a {
     .legal-modal-title {
         font-size: 1.8rem;
     }
+}
+
+#warning-modal {
+    z-index: 12000 !important;
+}
+
+#warning-modal .modal-bg {
+    background: rgba(0,0,0,0.1) !important;
+    backdrop-filter: blur(1px);
 }
 

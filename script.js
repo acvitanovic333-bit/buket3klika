@@ -384,7 +384,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     calculateBtn.addEventListener('click', () => {
-        const address = addressInput.value.trim();
+        const address = addressInput.value.toLowerCase().trim();
+        
+        // List of major Croatian cities outside Zagreb region to block
+        const blockedCities = [
+            'split', 'rijeka', 'osijek', 'zadar', 'pula', 'slavonski brod', 
+            'karlovac', 'varazdin', 'sibenik', 'sisak', 'dubrovnik', 
+            'koprivnica', 'bjelovar', 'vukovar', 'cakovec', 'pozega'
+        ];
+
+        const mentionsBlockedCity = blockedCities.some(city => address.includes(city));
+        const outsideRegionZip = /\b[2-5]\d{4}\b/.test(address); 
+
+        if (mentionsBlockedCity || outsideRegionZip) {
+            showWarning('Ispričavamo se, ali kupnja i dostava su trenutno dozvoljeni samo u Gradu Zagrebu i Zagrebačkoj županiji.');
+            return; // Stop here, don't show map
+        }
+
         if(address) {
             mapContainer.style.display = 'block';
             const mapUrl = `https://maps.google.com/maps?saddr=Importanne+Centar,+Zagreb&daddr=${encodeURIComponent(address + ', Zagreb')}&output=embed`;
@@ -394,6 +410,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     goToCalendarBtn.addEventListener('click', () => {
+        const address = addressInput.value.toLowerCase();
+        
+        // List of major Croatian cities outside Zagreb region to block
+        const blockedCities = [
+            'split', 'rijeka', 'osijek', 'zadar', 'pula', 'slavonski brod', 
+            'karlovac', 'varazdin', 'sibenik', 'sisak', 'dubrovnik', 
+            'koprivnica', 'bjelovar', 'vukovar', 'cakovec', 'pozega'
+        ];
+
+        // Check if address mentions an explicitly blocked city
+        const mentionsBlockedCity = blockedCities.some(city => address.includes(city));
+        
+        // Check for Croatian ZIP codes outside Zagreb region (which start with 2, 3, 4, or 5)
+        const outsideRegionZip = /\b[2-5]\d{4}\b/.test(address); 
+
+        if (mentionsBlockedCity || outsideRegionZip) {
+            showWarning('Ispričavamo se, ali kupnja i dostava su trenutno dozvoljeni samo u Gradu Zagrebu i Zagrebačkoj županiji.');
+            return; // Prevent going to the calendar
+        }
+
         stepAddress.style.display = 'none';
         stepCalendar.style.display = 'block';
         renderCalendar();
@@ -657,17 +693,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCalendar() {
         calendarWrapper.innerHTML = '';
         const now = new Date();
-        const daysToShow = 14; // Showing next 2 weeks for a cleaner look
+        const daysToShow = 30; 
         
+        const navWrapper = document.createElement('div');
+        navWrapper.className = 'calendar-nav-wrapper';
+
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'nav-arrow prev-arrow';
+        prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'nav-arrow next-arrow';
+        nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+
         const sliderContainer = document.createElement('div');
         sliderContainer.className = 'date-slider-container';
 
         const slider = document.createElement('div');
         slider.className = 'date-slider';
 
-        let firstDayEl = null;
-
-        for (let i = 0; i < daysToShow; i++) {
+        for (let i = 1; i <= daysToShow; i++) {
             const date = new Date();
             date.setDate(now.getDate() + i);
             
@@ -689,17 +734,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 showTimeSlots(date);
             });
 
-            if (i === 0) {
+            if (i === 1) {
                 dayEl.classList.add('selected');
-                firstDayEl = dayEl;
-                // Defer initial time slots to ensure timeslotsWrapper is ready
+                // Defer initial time slots
                 setTimeout(() => showTimeSlots(date), 0);
             }
 
             slider.appendChild(dayEl);
         }
+
+        // Arrow functionality
+        const updateArrows = () => {
+            const scrollLeft = sliderContainer.scrollLeft;
+            const maxScroll = sliderContainer.scrollWidth - sliderContainer.clientWidth;
+            
+            // Hide prev arrow if at the beginning
+            prevBtn.style.opacity = scrollLeft <= 10 ? '0' : '1';
+            prevBtn.style.pointerEvents = scrollLeft <= 10 ? 'none' : 'auto';
+            
+            // Hide next arrow if at the end
+            nextBtn.style.opacity = scrollLeft >= maxScroll - 10 ? '0' : '1';
+            nextBtn.style.pointerEvents = scrollLeft >= maxScroll - 10 ? 'none' : 'auto';
+        };
+
+        sliderContainer.addEventListener('scroll', updateArrows);
+        window.addEventListener('resize', updateArrows); // Update on resize too
+        setTimeout(updateArrows, 100);
+
+        prevBtn.addEventListener('click', () => {
+            sliderContainer.scrollBy({ left: -300, behavior: 'smooth' });
+            setTimeout(updateArrows, 400); // Check after animation
+        });
+        nextBtn.addEventListener('click', () => {
+            sliderContainer.scrollBy({ left: 300, behavior: 'smooth' });
+            setTimeout(updateArrows, 400); // Check after animation
+        });
+
         sliderContainer.appendChild(slider);
-        calendarWrapper.appendChild(sliderContainer);
+        navWrapper.appendChild(prevBtn);
+        navWrapper.appendChild(sliderContainer);
+        navWrapper.appendChild(nextBtn);
+        calendarWrapper.appendChild(navWrapper);
     }
 
     function showTimeSlots(date) {
@@ -1077,4 +1152,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    window.showWarning = function(message) {
+        const warningModal = document.getElementById('warning-modal');
+        const warningText = document.getElementById('warning-text');
+        if (warningModal && warningText) {
+            warningText.textContent = message;
+            warningModal.classList.add('active');
+        }
+    };
+
+    window.closeWarning = function() {
+        const warningModal = document.getElementById('warning-modal');
+        if (warningModal) {
+            warningModal.classList.remove('active');
+        }
+    };
 });
