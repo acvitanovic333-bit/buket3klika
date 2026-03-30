@@ -1747,3 +1747,28 @@ a {
     backdrop-filter: blur(1px);
 }
 
+/* Rose Count Overlay - vidljiv samo na mobitelu */
+.rose-count-overlay {
+    display: none;
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-family: 'Georgia', serif;
+    font-size: 2.2rem;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(0,0,0,0.5);
+    letter-spacing: 1px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 3;
+}
+
+@media (max-width: 768px) {
+    .rose-count-overlay {
+        display: block;
+    }
+}
+

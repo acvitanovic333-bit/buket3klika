@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="payment-info-box paypal">
                             <i class="fa-brands fa-paypal" style="font-size: 2rem; color: #003087;"></i>
                             <p>Pošaljite uplatu na naš PayPal račun:</p>
-                            <strong class="paypal-email">acvitanovic333@gmail.com</strong>
+                            <strong class="paypal-email">prodaja.buket3klika@gmail.com</strong>
                             <p class="small-note">U opis uplate upišite svoj kod narudžbe.</p>
                         </div>
                         <button id="btn-order-paypal" class="btn-confirm-order"><i class="fa-solid fa-check"></i> Potvrdi narudžbu</button>
@@ -632,6 +632,20 @@ document.addEventListener('DOMContentLoaded', () => {
         stepPayment.style.display = 'none';
         stepSuccess.style.display = 'block';
 
+        // Automatski šalji obavijest vlasniku na prodaja.buket3klika@gmail.com
+        const ownerNotifParams = {
+            to_email: 'prodaja.buket3klika@gmail.com',
+            order_id: orderId,
+            product_name: currentSelectedProduct || 'Buket',
+            price: (currentSelectedPrice || '').replace(/^Od\s+/i, ''),
+            delivery_address: deliveryAddress,
+            delivery_time: currentSelectedTime,
+            payment_method: paymentMethod || 'N/A'
+        };
+        emailjs.send('service_eoswglo', 'template_6hdora9', ownerNotifParams)
+            .then(() => console.log('Obavijest vlasniku poslana!'))
+            .catch(err => console.error('Greška slanja obavijesti:', err));
+
         setupEmailConfirmation(orderId, deliveryAddress, currentSelectedTime);
 
         if (adminDashboardView && !adminDashboardView.classList.contains('hidden')) {
@@ -664,7 +678,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         delivery_address: deliveryAddress,
                         delivery_time: deliveryTime,
                         price: (currentSelectedPrice || '').replace(/^Od\s+/i, ''),
-                        from_email: "acvitanovic333@gmail.com"
+                        from_email: "prodaja.buket3klika@gmail.com"
                     };
 
                     emailjs.send('service_eoswglo', 'template_1f1nsi8', templateParams)
