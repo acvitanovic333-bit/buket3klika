@@ -259,26 +259,30 @@ a {
 .product-title-overlay.top-left {
     top: 1rem;
     left: 1rem;
-}.rose-count-overlay {
+}
+
+.rose-count-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    color: rgba(255, 255, 255, 0.85); /* White with slight transparency for decent/subtle look */
-    font-size: 3.5rem; /* Larger font size */
+    transform: translate(-50%, -50%) scale(0.9);
+    color: #ffffff !important;
+    font-size: 3.2rem;
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    text-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Add shadow to ensure it's readable over light flowers */
+    font-style: italic; /* Obavezno Italic */
+    text-shadow: 0 0 15px rgba(0, 51, 102, 0.9), 0 4px 10px rgba(0, 0, 0, 0.7); /* Tamno plava/crna sjena za efekt sa slike */
     opacity: 0;
-    transition: var(--transition);
     pointer-events: none;
-    z-index: 15;
+    z-index: 100 !important;
     white-space: nowrap;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .product-card:hover .rose-count-overlay {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.05); /* Slight scale-up for extra elegance */
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) scale(1.05) !important;
 }
 
 .product-info {
@@ -426,9 +430,15 @@ a {
     .grid-3, .grid-2 {
         grid-template-columns: 1fr;
     }
+    .hero {
+        height: 85vh;
+        min-height: 650px;
+        padding-top: 100px; /* Navbar padding choice */
+        padding-bottom: 80px; /* Promijenjeno: razmak na dnu da se vidi slika */
+    }
     .hero-content {
-        padding: 2rem;
-        margin: 0 1.5rem;
+        padding: 2.5rem 2rem;
+        margin: 6rem 1.25rem 0 1.25rem; /* Even more top margin for mobile */
     }
     .hero-title {
         font-size: 2rem;
@@ -436,6 +446,105 @@ a {
     .footer-nav {
         flex-wrap: wrap;
         gap: 1rem;
+    }
+    /* Automatski prikaz broja ruža na mobitelu */
+    .rose-count-overlay {
+        opacity: 1 !important;
+        font-size: 2.2rem !important;
+        transform: translate(-50%, -50%) !important;
+        background: none !important;
+        text-shadow: 0 0 12px rgba(0, 51, 102, 0.9), 0 2px 8px rgba(0, 0, 0, 0.7) !important;
+        display: block !important;
+        bottom: auto !important;
+        top: 50% !important;
+    }
+    
+    .modal-content {
+        width: 92% !important; /* Blago prošireno */
+        max-width: 360px !important; /* Širina radi bolje preglednosti */
+        max-height: 80vh !important; /* Niži pop-up da se vidi pozadina gore/dolje */
+        padding: 0.8rem !important;
+        gap: 0.4rem !important;
+        overflow-y: auto !important; /* Vraćen slajder/skrolanje */
+        scrollbar-width: thin;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.05rem !important;
+    }
+    
+    .modal-content p {
+        font-size: 0.72rem !important;
+        line-height: 1.25 !important;
+        margin: 0.15rem 0 !important;
+    }
+    
+    .order-confirmation-email {
+        margin: 0.5rem 0 !important; /* Smanjena margina s 2rem */
+        padding: 0.6rem !important; /* Smanjeno s 1.5rem */
+    }
+    
+    .success-info-box {
+        margin: 0.4rem 0 !important;
+        padding: 0.5rem !important;
+    }
+    
+    .delivery-card {
+        padding: 0.6rem 0.4rem !important;
+        gap: 0.4rem !important;
+    }
+    
+    .order-id-display {
+        font-size: 0.85rem !important;
+        padding: 0.35rem 0.7rem !important;
+        margin: 0.2rem 0 !important;
+    }
+    
+    .email-input-group {
+        flex-direction: row !important; /* Pokušati u red na malim inputima ako stanu */
+        gap: 0.3rem !important;
+    }
+    
+    .email-input-group input {
+        font-size: 0.75rem !important;
+        padding: 0.4rem 0.6rem !important;
+    }
+    
+    .btn-secondary {
+        width: auto !important; /* Vratiti na auto u redu ako stane */
+        min-width: 60px !important;
+        padding: 0.4rem 0.8rem !important;
+        font-size: 0.75rem !important;
+    }
+    
+    #delivery-address {
+        padding-right: 65px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .btn-next {
+        padding: 0.6rem 1rem !important;
+        font-size: 0.8rem !important;
+    }
+    
+    .timeslots-grid {
+        justify-content: center !important; /* Centriranje termina na mobitelu */
+    }
+    
+    .time-btn {
+        width: 100% !important;
+        max-width: 120px !important;
+        margin: 0 auto !important;
+    }
+    
+    #modal-bg {
+        /* Ne mijenjamo */
+    }
+
+    /* Efekt blagog uvećanja slike kad je na ekranu (mobilna verzija) */
+    .product-card.on-screen .image-wrapper img {
+        transform: scale(1.03);
     }
 }
 
@@ -1748,27 +1857,5 @@ a {
 }
 
 /* Rose Count Overlay - vidljiv samo na mobitelu */
-.rose-count-overlay {
-    display: none;
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-family: 'Georgia', serif;
-    font-size: 2.2rem;
-    font-weight: bold;
-    font-style: italic;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(0,0,0,0.5);
-    letter-spacing: 1px;
-    white-space: nowrap;
-    pointer-events: none;
-    z-index: 3;
-}
 
-@media (max-width: 768px) {
-    .rose-count-overlay {
-        display: block;
-    }
-}
 

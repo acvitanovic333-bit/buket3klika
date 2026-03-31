@@ -158,22 +158,24 @@ document.addEventListener('DOMContentLoaded', () => {
         threshold: 0.1
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
+                entry.target.classList.add('on-screen'); // Za efekt na mobitelu
+            } else {
+                entry.target.classList.remove('on-screen');
             }
         });
-    }, observerOptions);
+    }, { ...observerOptions, threshold: 0.3 }); // Veći threshold za bolji efekt na sredini ekrana
 
     const productCards = document.querySelectorAll('.product-card, .subscribe-card');
     
     productCards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
-        card.style.transition = `opacity 0.6s ease-out ${index * 0.1}s, transform 0.6s ease-out ${index * 0.1}s`;
+        card.style.transition = `opacity 0.6s ease-out, transform 0.6s ease-out`; // Maknut delay za on-screen klasu
         observer.observe(card);
     });
 
@@ -592,9 +594,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 resetToStepAddress();
                 stepAddress.style.display = 'none';
                 stepSuccess.style.display = 'block';
-                const successMessage = document.getElementById('success-message');
                 successMessage.innerHTML = `
-                    Hvala vam na narudžbi! Vaš buket će biti dostavljen: <strong>${pendingOrder.deliveryTime}</strong> na adresu <strong>${pendingOrder.address}</strong>.<br><br>
+                    Hvala vam na narudžbi! Vaš buket će biti dostavljen: <strong>${pendingOrder.deliveryTime}</strong> na adresu <strong>${pendingOrder.address}</strong>.<br>
                     Svoj buket možete pratiti pomoću koda:<br>
                     <span class="order-id-display">${pendingOrder.id}</span>
                 `;
@@ -626,8 +627,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const successMessage = document.getElementById('success-message');
         successMessage.innerHTML = `
-            Hvala vam na narudžbi! Vaš buket će biti dostavljen: <strong>${currentSelectedTime}</strong> na adresu <strong>${deliveryAddress}</strong>.<br><br>
-            Način plaćanja: <strong>${paymentMethod}</strong><br><br>
+            Hvala vam na narudžbi! Vaš buket će biti dostavljen: <strong>${currentSelectedTime}</strong> na adresu <strong>${deliveryAddress}</strong>.<br>
+            Način plaćanja: <strong>${paymentMethod}</strong><br>
             Svoj buket možete pratiti pomoću koda:<br>
             <span class="order-id-display">${orderId}</span>
         `;
