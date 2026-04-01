@@ -468,6 +468,18 @@ a {
         overflow-y: auto !important; /* Vraćen slajder/skrolanje */
         scrollbar-width: thin;
     }
+
+    /* Admin Modal Full Screen on Mobile */
+    .admin-modal-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        overflow-y: auto !important;
+        padding-top: 5rem !important;
+    }
     
     .modal-content h2 {
         font-size: 1.1rem !important;
@@ -538,10 +550,6 @@ a {
         margin: 0 auto !important;
     }
     
-    #modal-bg {
-        /* Ne mijenjamo */
-    }
-
     /* Efekt blagog uvećanja slike kad je na ekranu (mobilna verzija) */
     .product-card.on-screen .image-wrapper img {
         transform: scale(1.03);
