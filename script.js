@@ -16,10 +16,41 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'BK-789', product: 'Proljetni Mix', status: 'Zaprimljeno', date: '09.03.2026.', address: 'Selska 120, Zagreb', deliveryTime: '11. ožujka u 09:00 h', price: '€35.00' }
     ];
 
+    // Initialize Supabase
+    const supabaseUrl = 'https://mwczxmahgppnlxbhkmbi.supabase.co';
+    const supabaseKey = 'sb_publishable_ELnMzzd-dDQGbnwkU103_Q_pP0k7WfU';
+    const supabaseClient = window.supabase ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
+
     let globalOrders = JSON.parse(localStorage.getItem('buket3klik_orders')) || defaultOrders;
 
-    function saveOrders() {
+    function saveOrders(order = null) {
         localStorage.setItem('buket3klik_orders', JSON.stringify(globalOrders));
+        
+        // Sync new order to Supabase if provided
+        if (order && supabaseClient) {
+            syncOrderToSupabase(order);
+        }
+    }
+
+    async function syncOrderToSupabase(order) {
+        try {
+            const { error } = await supabaseClient
+                .from('orders')
+                .insert([{
+                    order_id: order.id,
+                    product: order.product,
+                    status: order.status,
+                    price: order.price,
+                    address: order.address,
+                    delivery_time: order.deliveryTime,
+                    payment_method: order.paymentMethod,
+                    date: order.date
+                }]);
+            if (error) console.error('Supabase Sync Error:', error);
+            else console.log('Order synced to Supabase!');
+        } catch (err) {
+            console.error('Supabase Sync failed:', err);
+        }
     }
 
     let currentSelectedProduct = '';
@@ -613,7 +644,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Complete purchase flow for all methods
     function completePurchase(orderId, deliveryAddress, paymentMethod) {
-        globalOrders.unshift({
+        const newOrder = {
             id: orderId,
             product: currentSelectedProduct || 'Ruže',
             status: 'Zaprimljeno',
@@ -622,8 +653,9 @@ document.addEventListener('DOMContentLoaded', () => {
             address: deliveryAddress,
             deliveryTime: currentSelectedTime,
             paymentMethod: paymentMethod || 'N/A'
-        });
-        saveOrders();
+        };
+        globalOrders.unshift(newOrder);
+        saveOrders(newOrder);
 
         const successMessage = document.getElementById('success-message');
         successMessage.innerHTML = `
@@ -1097,8 +1129,35 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Narudžba s tim kodom nije pronađena.');
         }
     });
-    function renderAdminOrders() {
+    async function renderAdminOrders() {
         if (!adminOrdersList) return;
+        
+        // Fetch latest from Supabase if client exists
+        if (supabaseClient) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('orders')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (!error && data) {
+                    // Map Supabase data back to our format
+                    globalOrders = data.map(o => ({
+                        id: o.order_id,
+                        product: o.product,
+                        status: o.status,
+                        date: o.date,
+                        price: o.price,
+                        address: o.address,
+                        deliveryTime: o.delivery_time,
+                        paymentMethod: o.payment_method
+                    }));
+                }
+            } catch (err) {
+                console.error('Fetch failed:', err);
+            }
+        }
+
         adminOrdersList.innerHTML = globalOrders.map(order => `
             <div class="order-item" data-id="${order.id}">
                 <div class="order-header">
@@ -1147,6 +1206,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (orderIndex !== -1) {
                     globalOrders[orderIndex].status = newStatus;
                     saveOrders();
+                    
+                    // Update Supabase if client exists
+                    if (supabaseClient) {
+                        supabaseClient
+                            .from('orders')
+                            .update({ status: newStatus })
+                            .eq('order_id', orderId)
+                            .then(({ error }) => {
+                                if (error) console.error('Status sync error:', error);
+                            });
+                    }
+                    
                     renderAdminOrders(); // Re-render to show active state
                 }
             });
@@ -1163,6 +1234,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (orderIndex !== -1) {
                         globalOrders.splice(orderIndex, 1);
                         saveOrders();
+                        
+                        // Delete from Supabase if client exists
+                        if (supabaseClient) {
+                            supabaseClient
+                                .from('orders')
+                                .delete()
+                                .eq('order_id', orderId)
+                                .then(({ error }) => {
+                                    if (error) console.error('Delete sync error:', error);
+                                });
+                        }
+
                         renderAdminOrders();
                     }
                 }
