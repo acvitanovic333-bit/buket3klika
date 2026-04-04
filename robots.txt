@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://buket3klika.hr/sitemap.xml
