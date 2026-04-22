@@ -789,7 +789,8 @@ document.addEventListener('DOMContentLoaded', () => {
             price: (currentSelectedPrice || '').replace(/^Od\s+/i, ''),
             delivery_address: deliveryAddress,
             delivery_time: currentSelectedTime,
-            payment_method: paymentMethod || 'N/A'
+            payment_method: paymentMethod || 'N/A',
+            logo_url: 'https://buket3klika.hr/assets/rose-logo.png'
         };
         emailjs.send('service_eoswglo', 'template_6hdora9', ownerNotifParams)
             .then(() => console.log('Obavijest vlasniku poslana!'))
@@ -823,6 +824,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const templateParams = {
                         email: email,
                         order_id: orderId,
+                        logo_url: 'https://buket3klika.hr/assets/rose-logo.png',
                         product_name: currentSelectedProduct || 'Prekrasan Buket',
                         delivery_address: deliveryAddress,
                         delivery_time: deliveryTime,
