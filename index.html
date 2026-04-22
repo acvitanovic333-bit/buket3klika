@@ -73,11 +73,21 @@
     </script>
 </head>
 <body>
-    <nav class="nav-top">
+    <nav class="nav-top extended-nav">
         <a href="index.html" class="logo-rose" style="text-decoration: none;">
             <img src="assets/rose-logo.svg" alt="Buket3klika Logo">
-            <span>Buket3klika</span>
+            <span class="logo-text">Buket3klika</span>
         </a>
+        <div class="nav-links">
+            <a href="o-nama.html">O nama</a>
+            <a href="faq.html">Česta pitanja</a>
+            <a href="kontakt.html">Kontakt</a>
+            <a href="blog.html">Blog</a>
+        </div>
+        <div class="nav-contact">
+            <div class="contact-item"><i class="fa fa-phone"></i> <a href="tel:+385976050419">+385976050419</a></div>
+            <div class="contact-item"><i class="fa fa-envelope"></i> <a href="mailto:info@buket3klika.hr">info@buket3klika.hr</a></div>
+        </div>
         <div class="account-actions">
             <button class="account-btn" aria-label="Korisnički račun">
                 <i class="fa-regular fa-user"></i>
@@ -108,8 +118,8 @@
                     <div class="rose-count-overlay">19 ruža</div>
                 </div>
                 <div class="product-info">
-                    <span></span>
-                    <span class="price">Od €46.00</span>
+                    <span><span class="bestseller-badge"><i class="fa-solid fa-fire-flame-curved"></i> Najbolje se prodaje</span></span>
+                    <span class="price">Od €47.50</span>
                 </div>
             </article>
             <article class="product-card">
@@ -121,7 +131,7 @@
                 </div>
                 <div class="product-info">
                     <span></span>
-                    <span class="price">Od €46.00</span>
+                    <span class="price">Od €47.50</span>
                 </div>
             </article>
              <article class="product-card">
@@ -133,7 +143,7 @@
                 </div>
                 <div class="product-info">
                     <span></span>
-                    <span class="price">Od €46.00</span>
+                    <span class="price">Od €47.50</span>
                 </div>
             </article>
         </section>
@@ -149,11 +159,12 @@
                 </div>
                 <div class="product-info">
                     <span></span>
-                    <span class="price">Od €63.00</span>
+                    <span class="price">Od €62.50</span>
                 </div>
             </article>
-            <article class="product-card large">
+            <article class="product-card large" style="overflow: hidden;">
                 <div class="image-wrapper">
+                    <div class="discount-ribbon">Popust</div>
                     <img src="assets/prod_huge.jpg" alt="Veliki buket crvenih ruža - Grand Amour dostava Zagreb">
                     <button class="wishlist-btn"><i class="fa-regular fa-heart"></i></button>
                     <div class="product-title-overlay top-left">Grand Crvene Ruže</div>
@@ -161,7 +172,7 @@
                 </div>
                 <div class="product-info">
                     <span></span>
-                    <span class="price">Od €246.00</span>
+                    <span class="price">Od €198.00</span>
                 </div>
             </article>
         </section>
@@ -177,7 +188,7 @@
                 </div>
                 <div class="product-info">
                     <span></span>
-                    <span class="price">Od €41.00</span>
+                    <span class="price">Od €42.50</span>
                 </div>
             </article>
 
@@ -190,7 +201,7 @@
                 </div>
                 <div class="product-info">
                     <span></span>
-                    <span class="price">Od €41.00</span>
+                    <span class="price">Od €42.50</span>
                 </div>
             </article>
 
@@ -203,7 +214,7 @@
                 </div>
                 <div class="product-info">
                     <span></span>
-                    <span class="price">Od €41.00</span>
+                    <span class="price">Od €42.50</span>
                 </div>
             </article>
         </section>
@@ -219,7 +230,7 @@
                 </div>
                 <div class="product-info">
                     <span></span>
-                    <span class="price">Od €126.00</span>
+                    <span class="price">Od €122.50</span>
                 </div>
             </article>
 
@@ -232,9 +243,19 @@
                 </div>
                 <div class="product-info">
                     <span></span>
-                    <span class="price">Od €126.00</span>
+                    <span class="price">Od €122.50</span>
                 </div>
             </article>
+        </section>
+
+        <!-- Extra Action Buttons -->
+        <section class="extra-actions mt-md" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="custom_order.html" class="btn-primary" style="text-decoration: none; font-size: 1.1rem; padding: 1rem 2rem; border-radius: 30px;">
+                Naručivanje određenog broja <i class="fa-solid fa-list-ol" style="margin-left: 0.5rem;"></i>
+            </a>
+            <a href="blog.html" class="btn-secondary" style="text-decoration: none; font-size: 1.1rem; padding: 1rem 2rem; border-radius: 30px; background: transparent; border: 2px solid var(--accent-red); color: var(--accent-red); transition: all 0.3s ease;">
+                Više o nama blog <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
+            </a>
         </section>
 
         <!-- Features Section -->
@@ -250,9 +271,9 @@
                 <p>Naši cvjetni aranžmani pažljivo su složeni upravo ovdje, koristeći najsvježije cvijeće od lokalnih uzgajivača.</p>
             </div>
             <div class="feature-item">
-                <div class="feature-icon"><i class="fa-solid fa-box-open"></i></div>
-                <h3>Prepoznatljiva kutija</h3>
-                <p>Većina naših aranžmana dolazi u našoj prepoznatljivoj kutiji, osiguravajući svježinu i savršen prvi dojam.</p>
+                <div class="feature-icon"><i class="fa-solid fa-leaf"></i></div>
+                <h3>Prepoznatljiv potpis</h3>
+                <p>Naši buketi dolaze u minimalističkom pakiranju, povezani prirodnom špagom. Čista ljepota ruža bez nepotrebnih dodataka za savršen prvi dojam.</p>
             </div>
             <div class="feature-item">
                 <div class="feature-icon"><i class="fa-solid fa-camera-retro"></i></div>
@@ -284,6 +305,7 @@
     </footer>
     <!-- Order Tracking Modal -->
     <div id="tracking-modal" class="modal">
+        <div class="modal-bg" onclick="document.getElementById('tracking-modal').classList.remove('active'); document.body.classList.remove('modal-open');"></div>
         <div class="modal-content tracking-modal-content">
             <span class="close-modal">&times;</span>
             <h2>Pratite svoju narudžbu</h2>
@@ -317,6 +339,7 @@
 
     <!-- Admin Hidden Modal -->
     <div id="admin-modal" class="modal">
+        <div class="modal-bg" onclick="document.getElementById('admin-modal').classList.remove('active'); document.body.classList.remove('modal-open');"></div>
         <div class="modal-content admin-modal-content" style="padding-top: 4rem !important;">
             <!-- Login View -->
             <div id="admin-login-view" style="position: relative; width: 100%; height: 100%;">

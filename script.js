@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2>Podaci za dostavu</h2>
                     <div class="input-group">
                         <i class="fa-solid fa-location-dot"></i>
-                        <input type="text" id="delivery-address" placeholder="Delivery zip code ili adresa (npr. Maksimirska 10)">
+                        <input type="text" id="delivery-address" placeholder="Poštanski broj ili adresa dostave (npr. Maksimirska 10)">
                         <button id="calculate-route-btn">Traži</button>
                     </div>
                     <div id="map-container" class="map-container"></div>
@@ -254,6 +254,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="summary-row total">
                             <span>Ukupno</span>
                             <strong id="summary-price">—</strong>
+                        </div>
+                    </div>
+
+                    <!-- Discount Section -->
+                    <div class="discount-section" style="margin-top: 1rem; border-top: 1px solid #eee; padding-top: 1rem;">
+                        <div class="discount-toggle" id="discount-toggle" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; color: var(--text-secondary); font-size: 0.9rem; padding: 0.5rem 0;">
+                            <span>Imate kod za popust?</span>
+                            <i class="fa-solid fa-chevron-down" id="discount-arrow" style="transition: transform 0.3s ease;"></i>
+                        </div>
+                        <div id="discount-input-container" class="hidden" style="margin-top: 0.8rem; overflow: hidden; transition: all 0.3s ease;">
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" id="discount-code-input" placeholder="Unesite kod (npr. buket3klika10)" style="flex: 1; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem;">
+                                <button id="apply-discount-btn" class="btn-secondary" style="padding: 0 1.2rem; white-space: nowrap; border-radius: 8px;">Primijeni</button>
+                            </div>
+                            <p id="discount-msg" style="font-size: 0.85rem; margin-top: 0.6rem; min-height: 1.2rem;"></p>
                         </div>
                     </div>
 
@@ -378,6 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.cursor = 'pointer';
         card.addEventListener('click', (e) => {
             if(e.target.closest('.wishlist-btn')) return;
+            if(e.target.closest('a')) return; // Allow normal link navigation Without launching modal
 
             const titleOverlay = card.querySelector('.product-title-overlay');
             if (titleOverlay) {
@@ -391,8 +407,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const img = card.querySelector('.image-wrapper img');
             if(img) {
-                modalBg.style.backgroundImage = `url(${img.src})`;
+                modalBg.style.background = `url("${img.src}") center/cover no-repeat`;
+                modalBg.style.filter = "brightness(0.7)";
                 modal.classList.add('active');
+                document.body.classList.add('modal-open');
                 addressInput.value = '';
                 mapContainer.style.display = 'none';
                 mapContainer.innerHTML = '';
@@ -411,11 +429,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closeModalBtn.addEventListener('click', () => {
         modal.classList.remove('active');
+        document.body.classList.remove('modal-open');
     });
 
     modal.addEventListener('click', (e) => {
         if(e.target === modal || e.target.classList.contains('modal-bg')) {
             modal.classList.remove('active');
+            document.body.classList.remove('modal-open');
         }
     });
 
@@ -498,6 +518,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Populate order summary when payment step loads
+    // --- Discount Code Logic ---
+    let activeDiscount = 0; // percentage
+
+    const setupDiscountLogic = () => {
+        const toggle = document.getElementById('discount-toggle');
+        const container = document.getElementById('discount-input-container');
+        const arrow = document.getElementById('discount-arrow');
+        const applyBtn = document.getElementById('apply-discount-btn');
+        const codeInput = document.getElementById('discount-code-input');
+        const msg = document.getElementById('discount-msg');
+        const summaryPrice = document.getElementById('summary-price');
+
+        if (!toggle) return;
+
+        toggle.addEventListener('click', () => {
+            container.classList.toggle('hidden');
+            arrow.style.transform = container.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        });
+
+        applyBtn.addEventListener('click', () => {
+            const code = codeInput.value.trim().toLowerCase();
+            let discount = 0;
+            
+            if (code === 'buket3klika10') discount = 10;
+            else if (code === 'buket3klika15') discount = 15;
+
+            if (discount > 0) {
+                activeDiscount = discount;
+                msg.style.color = '#10b981'; // var(--accent-green)
+                msg.textContent = `Popust od ${discount}% je uspješno primijenjen!`;
+                
+                // Update price in summary
+                let basePrice = parseFloat(currentSelectedPrice.replace('€', '').replace(',', '.'));
+                let newPrice = (basePrice * (1 - discount / 100)).toFixed(2);
+                summaryPrice.textContent = '€' + newPrice;
+                currentSelectedPrice = '€' + newPrice; // Update global price for payment
+                
+                applyBtn.disabled = true;
+                codeInput.disabled = true;
+                applyBtn.style.opacity = '0.5';
+            } else {
+                msg.style.color = '#e11d48'; // var(--accent-red)
+                msg.textContent = 'Kod nije valjan. Molimo pokušajte ponovno.';
+            }
+        });
+    };
+
     function populateOrderSummary() {
         const summaryProduct = document.getElementById('summary-product');
         const summaryDelivery = document.getElementById('summary-delivery');
@@ -505,6 +572,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (summaryProduct) summaryProduct.textContent = currentSelectedProduct || 'Buket Ruža';
         if (summaryDelivery) summaryDelivery.textContent = currentSelectedTime || '—';
         if (summaryPrice) summaryPrice.textContent = currentSelectedPrice || '—';
+        
+        setupDiscountLogic();
     }
 
     // Override step transition to populate summary
@@ -622,6 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Show success in modal
                 modal.classList.add('active');
+                document.body.classList.add('modal-open');
                 resetToStepAddress();
                 stepAddress.style.display = 'none';
                 stepSuccess.style.display = 'block';
@@ -837,7 +907,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (let hour = 9; hour <= 21; hour++) {
             // If today, only show future hours + 1 hour buffer
-            if (isToday && hour <= currentHour + 1) continue;
+            if (isToday && hour < currentHour + 1) continue;
 
             const slot = document.createElement('div');
             slot.className = 'time-btn';
@@ -1268,4 +1338,65 @@ document.addEventListener('DOMContentLoaded', () => {
             warningModal.classList.remove('active');
         }
     };
+
+    window.openCheckout = function(customProduct) {
+        currentSelectedProduct = customProduct.title;
+        currentSelectedPrice = "€" + customProduct.price.toFixed(2);
+        if(customProduct.image && modalBg) {
+            modalBg.style.background = `url("${customProduct.image}") center/cover no-repeat`;
+            modalBg.style.filter = "brightness(0.7)";
+        }
+        if(modal) {
+            modal.classList.add('active');
+            document.body.classList.add('modal-open');
+            addressInput.value = '';
+            mapContainer.style.display = 'none';
+            mapContainer.innerHTML = '';
+            goToCalendarBtn.style.display = 'none';
+            resetToStepAddress();
+        }
+    };
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('contact-submit-btn');
+            
+            // Collect data
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
+
+            const templateParams = {
+                from_name: name,
+                reply_to: email,
+                message: message,
+            };
+
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Šaljem...';
+            submitBtn.disabled = true;
+
+            // Slanje preko novog EmailJS servera za kontakt formu
+            emailjs.send('service_r61ifgg', 'template_fxcxnjj', templateParams, 'Wysfkzz-egv4cmg91')
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Uspješno poslano';
+                    submitBtn.style.backgroundColor = 'var(--accent-red)';
+                    contactForm.reset();
+                    
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                    }, 3000);
+                }, function(error) {
+                    console.error('FAILED...', error);
+                    submitBtn.innerHTML = 'Greška! Pokušaj ponovno.';
+                    submitBtn.disabled = false;
+                });
+        });
+    }
 });
