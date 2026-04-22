@@ -26,13 +26,13 @@ const images = [
     'Snimka zaslona 2026-04-22 003719.webp',
     'grand_roze.png',
     'pravoj_bijele_ruze.png',
-    'https://www.odealarose.com/media/cache/767_1024_jpeg/product/php6w4sAb-68c196f7c6e67.jpeg',
+    'white_17.webp',
     'Gemini_Generated_Image_ca1hgkca1hgkca1h.webp',
-    'https://www.odealarose.com/media/cache/767_1024_jpeg/product/phpE2xPQB-68c1971b8371f.jpeg',
+    'purple_17.webp',
     'prod_orange_new.png',
     'Gemini_Generated_Image_ctos43ctos43ctos.webp',
     'prod_huge.jpg',
-    'Gemini_Generated_Image_yewortyewortyewo.png' // Placeholder for giveaway
+    'Snimka zaslona 2026-04-22 015034.webp'
 ];
 
 data.forEach((item, index) => {
