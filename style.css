@@ -562,12 +562,12 @@ body.modal-open .nav-contact {
     }
     
     .modal-content {
-        width: 92% !important; /* Blago prošireno */
-        max-width: 360px !important; /* Širina radi bolje preglednosti */
-        max-height: 80vh !important; /* Niži pop-up da se vidi pozadina gore/dolje */
-        padding: 0.8rem !important;
-        gap: 0.4rem !important;
-        overflow-y: auto !important; /* Vraćen slajder/skrolanje */
+        width: 94% !important;
+        max-width: 400px !important;
+        max-height: 90vh !important;
+        padding: 0.5rem !important;
+        gap: 0.3rem !important;
+        overflow-y: auto !important;
         scrollbar-width: thin;
     }
 
@@ -584,19 +584,54 @@ body.modal-open .nav-contact {
     }
     
     .modal-content h2 {
-        font-size: 1.1rem !important;
-        margin-bottom: 0.05rem !important;
+        font-size: 1.2rem !important; /* Slightly larger for clarity */
+        margin-bottom: 0.3rem !important;
     }
     
     .modal-content p {
-        font-size: 0.72rem !important;
-        line-height: 1.25 !important;
-        margin: 0.15rem 0 !important;
+        font-size: 0.8rem !important;
+        line-height: 1.3 !important;
+        margin: 0.2rem 0 !important;
     }
     
+    .order-summary {
+        padding: 0.8rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .summary-row {
+        font-size: 0.85rem !important;
+        margin-bottom: 0.3rem !important;
+    }
+
+    .summary-row.total {
+        font-size: 1rem !important;
+        margin-top: 0.5rem !important;
+        padding-top: 0.5rem !important;
+    }
+
+    .payment-methods-grid {
+        gap: 0.6rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .payment-option {
+        padding: 0.7rem 0.3rem !important;
+        border-radius: 10px !important;
+        background: #fff !important;
+    }
+
+    .payment-option i {
+        font-size: 1.2rem !important;
+    }
+
+    .payment-option span {
+        font-size: 0.7rem !important;
+    }
+
     .order-confirmation-email {
-        margin: 0.5rem 0 !important; /* Smanjena margina s 2rem */
-        padding: 0.6rem !important; /* Smanjeno s 1.5rem */
+        margin: 0.5rem 0 !important;
+        padding: 0.8rem !important;
     }
     
     .success-info-box {
@@ -605,41 +640,42 @@ body.modal-open .nav-contact {
     }
     
     .delivery-card {
-        padding: 0.6rem 0.4rem !important;
-        gap: 0.4rem !important;
+        padding: 1.2rem 1rem !important; /* Cleaner padding */
+        gap: 0.5rem !important;
+        border-radius: 12px !important;
     }
     
     .order-id-display {
-        font-size: 0.85rem !important;
-        padding: 0.35rem 0.7rem !important;
-        margin: 0.2rem 0 !important;
+        font-size: 1rem !important;
+        padding: 0.5rem 1rem !important;
+        margin: 0.4rem 0 !important;
     }
     
     .email-input-group {
-        flex-direction: row !important; /* Pokušati u red na malim inputima ako stanu */
-        gap: 0.3rem !important;
+        flex-direction: row !important;
+        gap: 0.4rem !important;
     }
     
     .email-input-group input {
-        font-size: 0.75rem !important;
-        padding: 0.4rem 0.6rem !important;
+        font-size: 0.8rem !important;
+        padding: 0.6rem 1rem !important;
     }
     
     .btn-secondary {
-        width: auto !important; /* Vratiti na auto u redu ako stane */
-        min-width: 60px !important;
-        padding: 0.4rem 0.8rem !important;
-        font-size: 0.75rem !important;
+        width: auto !important;
+        min-width: 70px !important;
+        padding: 0.5rem 1rem !important;
+        font-size: 0.8rem !important;
     }
     
     #delivery-address {
-        padding-right: 65px !important;
-        font-size: 0.75rem !important;
+        padding-right: 70px !important;
+        font-size: 0.85rem !important;
     }
     
     .btn-next {
-        padding: 0.6rem 1rem !important;
-        font-size: 0.8rem !important;
+        padding: 0.8rem 1.2rem !important;
+        font-size: 0.9rem !important;
     }
     
     .timeslots-grid {
