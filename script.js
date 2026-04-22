@@ -848,9 +848,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const slider = document.createElement('div');
         slider.className = 'date-slider';
 
-        for (let i = 1; i <= daysToShow; i++) {
+        for (let i = 0; i <= daysToShow; i++) {
             const date = new Date();
             date.setDate(now.getDate() + i);
+            
+            // If it's today, check if there are any slots left before adding to calendar
+            // Actually, we'll allow it and show "no slots" inside if everything is past
             
             const dayEl = document.createElement('div');
             dayEl.className = 'date-item';
@@ -870,7 +873,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 showTimeSlots(date);
             });
 
-            if (i === 1) {
+            if (i === 0) {
                 dayEl.classList.add('selected');
                 // Defer initial time slots
                 setTimeout(() => showTimeSlots(date), 0);
@@ -922,8 +925,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentHour = new Date().getHours();
 
         for (let hour = 9; hour <= 21; hour++) {
-            // If today, only show future hours + 1 hour buffer
-            if (isToday && hour < currentHour + 1) continue;
+            // If today, only show future hours + at least 1h buffer (next full hour)
+            if (isToday && hour < currentHour + 2) continue;
 
             const slot = document.createElement('div');
             slot.className = 'time-btn';
