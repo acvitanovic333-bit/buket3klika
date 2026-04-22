@@ -539,19 +539,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         applyBtn.addEventListener('click', () => {
             const code = codeInput.value.trim().toLowerCase();
-            let discount = 0;
+            let basePrice = parseFloat(currentSelectedPrice.replace(/[^0-9.,]/g, '').replace(',', '.'));
+            let discountPercent = 0;
+            let discountFlat = 0;
             
-            if (code === 'buket3klika10') discount = 10;
-            else if (code === 'buket3klika15') discount = 15;
+            if (code === 'buket3klika10') {
+                discountPercent = 10;
+            } else if (code === 'buket3klika15') {
+                discountPercent = 15;
+            } else if (code === 'promo50') {
+                if (basePrice > 100) {
+                    discountFlat = 50;
+                } else {
+                    msg.style.color = '#e11d48'; // var(--accent-red)
+                    msg.textContent = 'Kod "promo50" vrijedi samo za narudžbe iznad 100€. Vaša cijena je ' + basePrice.toFixed(2) + '€. ';
+                    return;
+                }
+            }
 
-            if (discount > 0) {
-                activeDiscount = discount;
+            if (discountPercent > 0 || discountFlat > 0) {
+                let newPrice;
+                if (discountPercent > 0) {
+                    newPrice = (basePrice * (1 - discountPercent / 100)).toFixed(2);
+                    msg.textContent = `Popust od ${discountPercent}% je uspješno primijenjen!`;
+                } else {
+                    newPrice = (basePrice - discountFlat).toFixed(2);
+                    msg.textContent = `Popust od ${discountFlat}€ je uspješno primijenjen!`;
+                }
+
                 msg.style.color = '#10b981'; // var(--accent-green)
-                msg.textContent = `Popust od ${discount}% je uspješno primijenjen!`;
-                
-                // Update price in summary
-                let basePrice = parseFloat(currentSelectedPrice.replace('€', '').replace(',', '.'));
-                let newPrice = (basePrice * (1 - discount / 100)).toFixed(2);
                 summaryPrice.textContent = '€' + newPrice;
                 currentSelectedPrice = '€' + newPrice; // Update global price for payment
                 
