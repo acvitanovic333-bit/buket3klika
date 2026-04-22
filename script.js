@@ -706,18 +706,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.removeItem('pendingOrder');
 
                 // Show success in modal
-                modal.classList.add('active');
+                const successStepModal = document.getElementById('delivery-modal');
+                const successStepElem = document.getElementById('step-success');
+                const successMsgElem = document.getElementById('success-message');
+                const addressStepElem = document.getElementById('step-address');
+                
+                if (successStepModal) successStepModal.classList.add('active');
                 document.body.classList.add('modal-open');
-                resetToStepAddress();
-                stepAddress.style.display = 'none';
-                stepSuccess.style.display = 'block';
-                successMessage.innerHTML = `
-                    Hvala vam na narudžbi! Vaš buket će biti dostavljen: <strong>${pendingOrder.deliveryTime}</strong> na adresu <strong>${pendingOrder.address}</strong>.<br>
-                    Svoj buket možete pratiti pomoću koda:<br>
-                    <span class="order-id-display">${pendingOrder.id}</span>
-                `;
+                
+                if (addressStepElem) addressStepElem.style.display = 'none';
+                if (successStepElem) successStepElem.style.display = 'block';
+                
+                if (successMsgElem) {
+                    successMsgElem.innerHTML = `
+                        Hvala vam na narudžbi! Vaš buket će biti dostavljen: <strong>${pendingOrder.deliveryTime}</strong> na adresu <strong>${pendingOrder.address}</strong>.<br>
+                        Svoj buket možete pratiti pomoću koda:<br>
+                        <span class="order-id-display">${pendingOrder.id}</span>
+                    `;
+                }
 
-                // Setup email
+                // RESTORE product and price from pending order for emails
+                currentSelectedProduct = pendingOrder.product;
+                currentSelectedPrice = pendingOrder.price;
+                currentSelectedTime = pendingOrder.deliveryTime;
+
+                // 1. AUTOMATICALLY Send notification to owner (prodaja.buket3klika@gmail.com)
+                const ownerNotifParams = {
+                    to_email: 'prodaja.buket3klika@gmail.com',
+                    order_id: pendingOrder.id,
+                    product_name: pendingOrder.product || 'Buket',
+                    price: (pendingOrder.price || '').replace(/^Od\s+/i, ''),
+                    delivery_address: pendingOrder.address,
+                    delivery_time: pendingOrder.deliveryTime,
+                    payment_method: 'Kartica (Stripe)'
+                };
+                emailjs.send('service_eoswglo', 'template_6hdora9', ownerNotifParams)
+                    .then(() => console.log('Obavijest vlasniku poslana (Stripe)!'))
+                    .catch(err => console.error('Greška slanja obavijesti vlasniku:', err));
+
+                // 2. Setup button for CUSTOMER to request their own confirmation
                 setupEmailConfirmation(pendingOrder.id, pendingOrder.address, pendingOrder.deliveryTime);
             }
 
