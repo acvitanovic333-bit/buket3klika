@@ -511,7 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Stripe with your Publishable Key
     // IMPORTANT: Replace this with your actual Stripe Publishable Key
-    const stripePublishableKey = 'pk_live_51TGlCLDAAbrNGNbl0BxuNHKCsYW23Xk71vifBUPzFmsJT0F26rmqWgESX5quQcwCh5MZRe9I0tGnDej05ZmHER0e00Kje4tjXH';
+    const stripePublishableKey = 'pk_live_51TGlCLDAAbrNGNblOBxuNHKCsYW23Xk71vifBUPzFmsJT0F26rmqWgESX5quQcwCh5MZRe9I0tGnDej05ZmHEROe00Kje4tjXH';
     let stripeInstance = null;
     if (typeof Stripe !== 'undefined' && stripePublishableKey !== 'pk_test_PLACEHOLDER') {
         stripeInstance = Stripe(stripePublishableKey);
