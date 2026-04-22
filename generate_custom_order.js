@@ -164,5 +164,5 @@ newHtml = newHtml.replace(/<title>.*?<\/title>/, `<title>Naruči točan broj ru�
 // Hide the hero for this page as it makes it cleaner
 newHtml = newHtml.replace(/<header class="hero">[\s\S]*?<\/header>/, ``);
 
-fs.writeFileSync('custom_order.html', newHtml);
-console.log('Successfully generated custom_order.html');
+fs.writeFileSync('narudzba-po-zelji.html', newHtml);
+console.log('Successfully generated narudzba-po-zelji.html');
