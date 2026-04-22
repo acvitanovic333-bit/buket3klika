@@ -1247,8 +1247,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     async function renderAdminOrders() {
         if (!adminOrdersList) return;
+
+        // 1. First render what we have locally (immediate)
+        const renderList = (orders) => {
+            if (orders.length === 0) {
+                adminOrdersList.innerHTML = '<p style="text-align:center; padding: 2rem; opacity: 0.6;">Nema zaprimljenih narudžbi.</p>';
+                return;
+            }
+            adminOrdersList.innerHTML = orders.map(order => `
+                <div class="order-item" data-id="${order.id}">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <h4>${order.product}</h4>
+                            <p>Kod: <strong>${order.id}</strong> | Datum: ${order.date}</p>
+                        </div>
+                        <button class="delete-order-btn" title="Obriši narudžbu"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                    
+                    <div class="order-details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Adresa:</span>
+                            <span>${order.address || 'Nije navedeno'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Vrijeme dostave:</span>
+                            <span>${order.deliveryTime || 'Nije navedeno'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Cijena:</span>
+                            <span>${order.price || '...'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Status:</span>
+                            <span style="font-weight:700;">${order.status}</span>
+                        </div>
+                    </div>
+
+                    <div class="admin-status-controls">
+                        <button class="status-btn ${order.status === 'Zaprimljeno' ? 'active' : ''}" data-status="Zaprimljeno">Zaprimljeno</button>
+                        <button class="status-btn ${order.status === 'U izradi' ? 'active' : ''}" data-status="U izradi">U izradi</button>
+                        <button class="status-btn ${order.status === 'Dostavljeno' ? 'active' : ''}" data-status="Dostavljeno">Dostavljeno</button>
+                    </div>
+                </div>
+            `).join('');
+            attachOrderEvents();
+        };
+
+        renderList(globalOrders);
         
-        // Fetch latest from Supabase if client exists
+        // 2. Then fetch latest from Supabase if client exists (async)
         if (supabaseClient) {
             try {
                 const { data, error } = await supabaseClient
@@ -1257,7 +1304,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     .order('created_at', { ascending: false });
                 
                 if (!error && data) {
-                    // Map Supabase data back to our format
                     globalOrders = data.map(o => ({
                         id: o.order_id,
                         product: o.product,
@@ -1268,49 +1314,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         deliveryTime: o.delivery_time,
                         paymentMethod: o.payment_method
                     }));
+                    renderList(globalOrders);
                 }
             } catch (err) {
                 console.error('Fetch failed:', err);
             }
         }
+    }
 
-        adminOrdersList.innerHTML = globalOrders.map(order => `
-            <div class="order-item" data-id="${order.id}">
-                <div class="order-header">
-                    <div class="order-info">
-                        <h4>${order.product}</h4>
-                        <p>Kod: <strong>${order.id}</strong> | Datum: ${order.date}</p>
-                    </div>
-                    <button class="delete-order-btn" title="Obriši narudžbu"><i class="fa-solid fa-trash-can"></i></button>
-                </div>
-                
-                <div class="order-details-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">Adresa:</span>
-                        <span>${order.address || 'Nije navedeno'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Vrijeme dostave:</span>
-                        <span>${order.deliveryTime || 'Nije navedeno'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Cijena:</span>
-                        <span>${order.price || '...'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Status:</span>
-                        <span style="font-weight:700;">${order.status}</span>
-                    </div>
-                </div>
-
-                <div class="admin-status-controls">
-                    <button class="status-btn ${order.status === 'Zaprimljeno' ? 'active' : ''}" data-status="Zaprimljeno">Zaprimljeno</button>
-                    <button class="status-btn ${order.status === 'U izradi' ? 'active' : ''}" data-status="U izradi">U izradi</button>
-                    <button class="status-btn ${order.status === 'Dostavljeno' ? 'active' : ''}" data-status="Dostavljeno">Dostavljeno</button>
-                </div>
-            </div>
-        `).join('');
-
+    function attachOrderEvents() {
         // Add event listeners to status buttons
         adminOrdersList.querySelectorAll('.status-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {

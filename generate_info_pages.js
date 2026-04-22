@@ -48,7 +48,12 @@ const faqHtml = `
         </div>
 
         <div style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-            <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent-red);">5. Jesu li ruže svježe?</h3>
+            <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent-red);">5. Kako mogu pratiti svoju narudžbu?</h3>
+            <p style="line-height: 1.6;">Nakon svake narudžbe dobit ćete jedinstveni kod (npr. BK-123456). Taj kod možete unijeti klikom na <b>ikonu korisnika (čovječuljak)</b> u gornjem desnom kutu stranice. Tamo ćete odmah vidjeti je li vaš buket zaprimljen, u izradi ili je već na putu prema vama.</p>
+        </div>
+
+        <div style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+            <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent-red);">6. Jesu li ruže svježe?</h3>
             <p style="line-height: 1.6;">Naše cvijeće nabavljamo isključivo od provjerenih uzgajivača svakoga dana. Preskačemo posrednike koji cvijeće drže danima u hladnjačama, stoga vam garantiramo 100% premium svježinu i dugotrajnost latica.</p>
         </div>
 
