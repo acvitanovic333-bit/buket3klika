@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div id="discount-input-container" class="hidden" style="margin-top: 0.8rem; overflow: hidden; transition: all 0.3s ease;">
                             <div style="display: flex; gap: 0.5rem;">
-                                <input type="text" id="discount-code-input" placeholder="Unesite kod (npr. buket3klika10)" style="flex: 1; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem;">
+                                <input type="text" id="discount-code-input" placeholder="Unesite kod" style="flex: 1; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem;">
                                 <button id="apply-discount-btn" class="btn-secondary" style="padding: 0 1.2rem; white-space: nowrap; border-radius: 8px;">Primijeni</button>
                             </div>
                             <p id="discount-msg" style="font-size: 0.85rem; margin-top: 0.6rem; min-height: 1.2rem;"></p>
