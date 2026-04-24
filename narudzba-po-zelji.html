@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naruči točan broj ruža - Buket3klika</title>
+    <title>Naručivanje po Vašoj želji - Buket3klika Zagreb</title>
     <meta name="google-site-verification" content="FlAa20DxCvv6fmBndMJdTo-9T4lz_3I6lq0xV1kglEY" />
-    <meta name="description" content="Brza i sigurna dostava buketa i ruža u Zagrebu i okolici. Naručite najljepše bukete online u samo tri klika!">
+    <meta name="description" content="Složite svoj savršen buket ruža po želji. Odaberite točan broj i boju ruža te uživajte u brzoj dostavi u Zagrebu. Premium ruže u samo tri klika.">
     <meta name="keywords" content="dostava buketa zagreb, dostava ruža zagreb, cvjećarnica zagreb, online prodaja cvijeća, poklon buketi">
-    <link rel="canonical" href="https://buket3klika.hr/">
+    <link rel="canonical" href="https://buket3klika.hr/narudzba-po-zelji.html">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -65,7 +65,6 @@
         "closes": "20:00"
       },
       "sameAs": [
-        "https://www.instagram.com/buket3klika/",
         "https://www.tiktok.com/@buket3klika"
       ],
       "priceRange": "$$"
@@ -111,11 +110,11 @@
             <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem;">Složite svoj savršen buket</h2>
             
             <div class="form-group" style="margin-bottom: 1.5rem;">
-                <label for="rose-count" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Broj ruža (počevši od 1):</label>
+                <label for="rose-count" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Broj ruža (počevši od 17):</label>
                 <div style="display: flex; align-items: center; gap: 1rem;">
-                    <button type="button" id="btn-minus" style="width: 40px; height: 40px; border-radius: 50%; border: border: 1px solid #ccc; background: white; cursor: pointer; font-size: 1.2rem;">-</button>
-                    <input type="number" id="rose-count" value="1" min="1" max="500" style="width: 80px; text-align: center; font-size: 1.2rem; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px;">
-                    <button type="button" id="btn-plus" style="width: 40px; height: 40px; border-radius: 50%; border: border: 1px solid #ccc; background: white; cursor: pointer; font-size: 1.2rem;">+</button>
+                    <button type="button" id="btn-minus" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #ccc; background: white; cursor: pointer; font-size: 1.2rem;">-</button>
+                    <input type="number" id="rose-count" value="17" min="17" max="500" style="width: 80px; text-align: center; font-size: 1.2rem; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px;">
+                    <button type="button" id="btn-plus" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #ccc; background: white; cursor: pointer; font-size: 1.2rem;">+</button>
                 </div>
             </div>
             
@@ -179,8 +178,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updatePreview() {
-        let count = parseInt(roseCountInput.value) || 1;
-        if (count < 1) { count = 1; roseCountInput.value = 1; }
+        let count = parseInt(roseCountInput.value) || 17;
+        if (count < 17) { count = 17; roseCountInput.value = 17; }
         
         let suffix = 'ruža';
         if (count === 1) suffix = 'ruža';
@@ -200,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     btnMinus.addEventListener('click', () => {
-        if (parseInt(roseCountInput.value) > 1) {
+        if (parseInt(roseCountInput.value) > 17) {
             roseCountInput.value = parseInt(roseCountInput.value) - 1;
             updatePreview();
         }
@@ -256,7 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
     <footer class="site-footer mt-lg">
         <div class="social-links-container">
             <div class="social-links">
-                <a href="https://www.instagram.com/buket3klika/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://www.pinterest.com/buket3klika/" target="_blank"><i class="fa-brands fa-pinterest-p"></i></a>
                 <a href="https://www.tiktok.com/@buket3klika" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                 <a href="http://www.youtube.com/@buket3klika" target="_blank"><i class="fa-brands fa-youtube"></i></a>
