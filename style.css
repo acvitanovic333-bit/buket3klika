@@ -445,7 +445,12 @@ body.modal-open .nav-contact {
 
 .social-links a {
     color: var(--text-primary);
-    font-size: 1.25rem;
+    font-size: 1.4rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: var(--transition);
 }
 
