@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="payment-methods-grid">
                         <div class="payment-option" data-method="pouzecem">
                             <i class="fa-solid fa-money-bill-wave"></i>
-                            <span>Pouzećem</span>
+                            <span>Gotovina pri isporuci</span>
                         </div>
                         <div class="payment-option" data-method="virman">
                             <i class="fa-solid fa-building-columns"></i>
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div id="payment-detail-pouzecem" class="payment-detail hidden">
                         <div class="payment-info-box cash">
                             <i class="fa-solid fa-truck"></i>
-                            <p>Platite gotovinom ili karticom prilikom preuzimanja buketa na vašim vratima.</p>
+                            <p>Platite gotovinom ili karticom našem dostavljaču prilikom preuzimanja buketa na vašim vratima.</p>
                         </div>
                         <button id="btn-order-pouzecem" class="btn-confirm-order"><i class="fa-solid fa-check"></i> Potvrdi narudžbu</button>
                     </div>
@@ -633,7 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    setupConfirmButton('btn-order-pouzecem', 'Pouzećem');
+    setupConfirmButton('btn-order-pouzecem', 'Gotovina pri isporuci');
     setupConfirmButton('btn-order-virman', 'Virman');
     setupConfirmButton('btn-order-paypal', 'PayPal');
 

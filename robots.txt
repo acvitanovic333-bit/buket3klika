@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /_tools/
+Disallow: /api/
+Disallow: /scratch/
 
 Sitemap: https://buket3klika.hr/sitemap.xml

@@ -15,11 +15,11 @@ const customOrderHtml = `
             <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem;">Složite svoj savršen buket</h2>
             
             <div class="form-group" style="margin-bottom: 1.5rem;">
-                <label for="rose-count" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Broj ruža (počevši od 1):</label>
+                <label for="rose-count" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Broj ruža (počevši od 17):</label>
                 <div style="display: flex; align-items: center; gap: 1rem;">
-                    <button type="button" id="btn-minus" style="width: 40px; height: 40px; border-radius: 50%; border: border: 1px solid #ccc; background: white; cursor: pointer; font-size: 1.2rem;">-</button>
-                    <input type="number" id="rose-count" value="1" min="1" max="500" style="width: 80px; text-align: center; font-size: 1.2rem; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px;">
-                    <button type="button" id="btn-plus" style="width: 40px; height: 40px; border-radius: 50%; border: border: 1px solid #ccc; background: white; cursor: pointer; font-size: 1.2rem;">+</button>
+                    <button type="button" id="btn-minus" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #ccc; background: white; cursor: pointer; font-size: 1.2rem;">-</button>
+                    <input type="number" id="rose-count" value="17" min="17" max="500" style="width: 80px; text-align: center; font-size: 1.2rem; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px;">
+                    <button type="button" id="btn-plus" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #ccc; background: white; cursor: pointer; font-size: 1.2rem;">+</button>
                 </div>
             </div>
             
@@ -83,8 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updatePreview() {
-        let count = parseInt(roseCountInput.value) || 1;
-        if (count < 1) { count = 1; roseCountInput.value = 1; }
+        let count = parseInt(roseCountInput.value) || 17;
+        if (count < 17) { count = 17; roseCountInput.value = 17; }
         
         let suffix = 'ruža';
         if (count === 1) suffix = 'ruža';
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     btnMinus.addEventListener('click', () => {
-        if (parseInt(roseCountInput.value) > 1) {
+        if (parseInt(roseCountInput.value) > 17) {
             roseCountInput.value = parseInt(roseCountInput.value) - 1;
             updatePreview();
         }
@@ -160,7 +160,17 @@ document.addEventListener('DOMContentLoaded', () => {
 const indexHtml = fs.readFileSync('index.html', 'utf8');
 
 let newHtml = indexHtml.replace(/<main class="container">[\s\S]*?<\/main>/, customOrderHtml);
-newHtml = newHtml.replace(/<title>.*?<\/title>/, `<title>Naruči točan broj ruža - Buket3klika</title>`);
+
+// 1. Update Title tag for SEO
+newHtml = newHtml.replace(/<title>.*?<\/title>/, `<title>Naručivanje po Vašoj želji - Buket3klika Zagreb</title>`);
+
+// 2. Inject Unique Meta Description for SEO
+const customMetaDescription = "Složite svoj savršen buket ruža po želji. Odaberite točan broj i boju ruža te uživajte u brzoj dostavi u Zagrebu. Premium ruže u samo tri klika.";
+newHtml = newHtml.replace(/<meta name="description" content=".*?">/, `<meta name="description" content="${customMetaDescription}">`);
+
+// 3. Update Canonical Link
+newHtml = newHtml.replace(/<link rel="canonical" href=".*?">/, `<link rel="canonical" href="https://buket3klika.hr/narudzba-po-zelji.html">`);
+
 // Hide the hero for this page as it makes it cleaner
 newHtml = newHtml.replace(/<header class="hero">[\s\S]*?<\/header>/, ``);
 
