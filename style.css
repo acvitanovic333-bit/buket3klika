@@ -2037,3 +2037,41 @@ body.modal-open .nav-contact {
 @media (max-width: 768px) {
     .logo-text { display: inline-block !important; }
 }
+
+/* SEO Links Accordion on Mobile */
+.seo-links-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.seo-links-toggle {
+    font-size: 1.5rem;
+    color: var(--accent-red);
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .seo-links-grid {
+        display: none !important; /* Hidden by default on mobile */
+        text-align: center;
+    }
+    .seo-links-grid.active {
+        display: grid !important;
+    }
+    .seo-links-toggle {
+        display: block;
+    }
+    .seo-links-section h3 {
+        margin-bottom: 0 !important;
+    }
+}
+@media (min-width: 769px) {
+    .seo-links-toggle {
+        display: none;
+    }
+    .seo-links-grid {
+        display: grid !important; /* Always visible on desktop */
+    }
+}
