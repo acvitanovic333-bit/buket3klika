@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminDashboardView = document.getElementById('admin-dashboard-view');
     const adminOrdersList = document.getElementById('admin-orders-list');
 
-    if (adminHeartLink) {
+    if (adminHeartLink && adminModal && adminUsernameInput) {
         adminHeartLink.addEventListener('click', (e) => {
             e.preventDefault();
             adminModal.style.display = 'block';
