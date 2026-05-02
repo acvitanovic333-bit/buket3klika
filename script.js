@@ -544,11 +544,15 @@ document.addEventListener('DOMContentLoaded', () => {
             let discountFlat = 0;
             
             if (code === 'test99') {
-        currentPrice = 1.00;
-        document.getElementById('modal-price').innerText = '€' + currentPrice.toFixed(2);
-        alert('Testni kod primijenjen! Cijena je 1.00€.');
-        return;
-    }
+                currentSelectedPrice = '1.00';
+                if (summaryPrice) summaryPrice.textContent = '€1.00';
+                const modalPrice = document.getElementById('modal-price');
+                if (modalPrice) modalPrice.innerText = '€1.00';
+                
+                msg.style.color = '#10b981';
+                msg.textContent = 'Testni kod primijenjen! Cijena je sada 1.00€.';
+                return;
+            }
 
     if (code === 'buket3klika10') {
                 discountPercent = 10;
