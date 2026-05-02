@@ -1,0 +1,15 @@
+    <section class="seo-header" style="max-width: 1200px; margin: 3rem auto; padding: 2rem; background: var(--bg-card); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center;">
+        <h2 style="font-family: var(--font-heading); color: var(--accent-red); margin-bottom: 2rem; font-size: 2.2rem;">Poklon za Valentinovo: Kako preživjeti 14. veljače bez drame?</h2>
+        
+        <div style="text-align: justify; font-size: 1.15rem; line-height: 1.8; color: var(--text-secondary); max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
+            <p>Valentinovo u Zagrebu – onaj dan u godini kada grad miriše na parfeme, čokoladu i... blagu paniku muškaraca koji su se sjetili poklona tek u 16:30. Ako ne želiš biti taj tip koji na kraju dana kupuje uvenulu ružu na benzinskoj dok se nada čudu, na pravom si mjestu. Buket3klika je tvoj "izlaz iz zatvora" kartica za Dan zaljubljenih.</p>
+            
+            <p>Što žene zapravo žele za Valentinovo? Nije to nuklearna fizika, iako se nekad tako čini. Žele osjećaj da si se potrudio, čak i ako ti je trebalo samo tri klika. Naš recept za uspjeh je jednostavan: uzmi najcrvenije ruže koje si ikad vidio, dodaj im naše ekskluzivno pakiranje koje vrišti "imam ukusa" i dostavi ih točno u trenutku kad se ona najmanje nada (npr. dok pije kavu s frendicama, to su dodatni bodovi!).</p>
+            
+            <p>Zaboravi na plišane medvjede koji samo skupljaju prašinu. Cvijeće je klasika s razlogom. Kod nas u Zagrebu, Valentinovo nije samo praznik, to je sport u kojem se Buket3klika natječe za tvoju zlatnu medalju. Naša premium dostava juri po gradu brže od Kupidove strijele, a naši buketi su toliko svježi da bi mogli još neko vrijeme rasti u vazi da ih redovito zalijevaš (ali molimo te, nemoj ih saditi u vrt).</p>
+            
+            <p>I ne brini, ako si jedan od onih koji bi radije rješavali poreznu prijavu nego pisali romantične poruke, tu smo da pomognemo. Uz tvoj savršen poklon za Valentinovo dolazi i luksuzna kartica. Ako nemaš inspiracije, slobodno napiši "Znaš da te volim više od nogometa", mi ćemo to lijepo ispisati i garantirati ti mirnu večer uz večeru i vino.</p>
+            
+            <p>Zašto čekati zadnji tren? Rezerviraj svoj buket odmah i budi onaj frajer koji se 14. veljače mirno šeće Zrinjevcem dok drugi trče u panici. Uz Buket3klika, tvoj poklon za Valentinovo u Zagrebu stiže na adresu s osmijehom, mirisom koji obara s nogu i garancijom da ćeš ove godine definitivno biti "najbolji dečko/muž ikad". Tri klika i drama je gotova!</p>
+        </div>
+    </section>

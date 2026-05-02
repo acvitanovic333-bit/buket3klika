@@ -502,26 +502,26 @@ body.modal-open .nav-contact {
 
 @media (max-width: 600px) {
     .nav-top.extended-nav {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
         padding: 0.5rem 1rem;
-        gap: 0.5rem;
+        height: 60px;
     }
-    .nav-links {
-        gap: 1rem;
-        font-size: 0.9rem;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .nav-contact {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.2rem;
-        font-size: 0.8rem;
+    .nav-links, .nav-contact {
+        display: none !important; /* Hide on mobile for simplicity, or use burger menu later */
     }
     .account-actions {
-        position: absolute;
-        top: 0.5rem;
-        right: 1rem;
+        display: flex;
+        align-items: center;
+    }
+    .mobile-call-btn {
+        display: block !important;
+    }
+    .logo-rose {
+        font-size: 1.1rem;
+    }
+    .logo-text {
+        display: none; /* Only icon on very small screens to save space */
     }
     .info-card-container {
         padding: 1.5rem !important;
@@ -538,17 +538,16 @@ body.modal-open .nav-contact {
         grid-template-columns: 1fr;
     }
     .hero {
-        height: 85vh;
-        min-height: 650px;
-        padding-top: 100px; /* Navbar padding choice */
-        padding-bottom: 80px; /* Promijenjeno: razmak na dnu da se vidi slika */
+        height: 70vh;
+        min-height: 500px;
+        padding-top: 60px;
     }
     .hero-content {
-        padding: 2.5rem 2rem;
-        margin: 10rem 1.25rem 0 1.25rem; /* Increased top margin for mobile header */
+        padding: 2rem 1.5rem;
+        margin: 4rem 1rem 0 1rem;
     }
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     .footer-nav {
         flex-wrap: wrap;
