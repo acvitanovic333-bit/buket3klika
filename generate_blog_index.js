@@ -9,12 +9,7 @@ const data = [
   { file: "brza-dostava-cvijeca-na-adresu.html", title: "6. Brza dostava cvijeća na adresu", img: "pravoj_bijele_ruze.png" },
   { file: "bijele-ruze-znacenje-i-dostava.html", title: "7. Bijele ruže značenje i dostava", img: "white_17.webp" },
   { file: "rodendanski-buket-ruza-zagreb.html", title: "8. Rođendanski buket ruža Zagreb", img: "Gemini_Generated_Image_ca1hgkca1hgkca1h.webp" },
-  { file: "luksuzni-buketi-zagreb.html", title: "9. Luksuzni buketi Zagreb", img: "purple_17.webp" },
-  { file: "postani-majstor-romantike.html", title: "10. Postani Majstor Romantike", img: "prod_orange_new.png" },
-  { file: "slanje-ruza-u-ured-zagreb.html", title: "11. Slanje Vrhunskih Ruža u Ured", img: "Gemini_Generated_Image_ctos43ctos43ctos.webp" },
-  { file: "rodendansko-iznenadenje-99-ruza.html", title: "12. Rođendansko Iznenađenje: 99 Ruža", img: "prod_huge.jpg" },
-  { file: "ruze-u-kutiji-flower-box-zagreb.html", title: "13. Ruže u kutiji Zagreb", img: "Snimka zaslona 2026-04-22 015034.webp" },
-  { file: "dostava-ruza-zagreb.html", title: "14. Dostava ruža Zagreb", img: "Gemini_Generated_Image_yewortyewortyewo.png" }
+  { file: "luksuzni-buketi-zagreb.html", title: "9. Luksuzni buketi Zagreb", img: "purple_17.webp" }
 ];
 
 let itemsHtml = '';
