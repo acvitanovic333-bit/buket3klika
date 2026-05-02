@@ -2031,3 +2031,9 @@ body.modal-open .nav-contact {
 
 
 
+
+
+/* Force logo text visibility on mobile */
+@media (max-width: 768px) {
+    .logo-text { display: inline-block !important; }
+}
