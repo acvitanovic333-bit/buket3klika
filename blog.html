@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="hr">
 <head>
     <!-- Google tag (gtag.js) -->
@@ -11,12 +11,73 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Više za vas - Blog - Buket3klika</title>
-    <meta name="description" content="Saznajte sve o ružama, dostavi i savjetima za održavanje buketa na našem blogu.">
+    <title>ViĹˇe za vas - Blog - Buket3klika</title>
+    <meta name="google-site-verification" content="FlAa20DxCvv6fmBndMJdTo-9T4lz_3I6lq0xV1kglEY" />
+    <meta name="description" content="Brza i sigurna dostava buketa i ruĹľa u Zagrebu i okolici. NaruÄŤite najljepĹˇe bukete online u samo tri klika!">
+    <meta name="keywords" content="dostava buketa zagreb, dostava ruĹľa zagreb, cvjeÄ‡arnica zagreb, online prodaja cvijeÄ‡a, poklon buketi">
+    <link rel="canonical" href="https://buket3klika.hr/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://buket3klika.hr/">
+    <meta property="og:title" content="Dostava RuĹľa Zagreb - Buket3klika - Buketi u 3 klika">
+    <meta property="og:description" content="Brza i sigurna dostava buketa i ruĹľa u Zagrebu. NaruÄŤite online bukete u samo tri klika.">
+    <meta property="og:image" content="https://buket3klika.hr/assets/bg_hero.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://buket3klika.hr/">
+    <meta property="twitter:title" content="Dostava RuĹľa Zagreb - Buket3klika - Buketi u 3 klika">
+    <meta property="twitter:description" content="Brza i sigurna dostava buketa i ruĹľa u Zagrebu. NaruÄŤite online bukete u samo tri klika.">
+    <meta property="twitter:image" content="https://buket3klika.hr/assets/bg_hero.jpg">
+
     <link rel="stylesheet" href="style.css?v=2.0">
     <link rel="icon" type="image/png" href="assets/favicon.png?v=1.3">
+    <link rel="apple-touch-icon" href="assets/favicon.png?v=1.3">
+    <link rel="manifest" href="site.webmanifest">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Structured Data (Schema.org) for Florist -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Florist",
+      "name": "Buket3klika",
+      "image": "https://buket3klika.hr/assets/rose-logo.png",
+      "url": "https://buket3klika.hr",
+      "telephone": "+385XXXXXXXXX",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "",
+        "addressLocality": "Zagreb",
+        "postalCode": "10000",
+        "addressCountry": "HR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 45.8150,
+        "longitude": 15.9819
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "08:00",
+        "closes": "20:00"
+      },
+      "sameAs": [
+        "https://www.tiktok.com/@buket3klika"
+      ],
+      "priceRange": "$$"
+    }
+    </script>
 </head>
 <body>
     <nav class="nav-top extended-nav">
@@ -26,9 +87,18 @@
         </a>
         <div class="nav-links">
             <a href="o-nama.html">O nama</a>
-            <a href="faq.html">Česta pitanja</a>
+            <a href="faq.html">ÄŚesta pitanja</a>
             <a href="kontakt.html">Kontakt</a>
-            <a href="blog.html" class="active">Blog</a>
+            <a href="blog.html">Blog</a>
+        </div>
+        <div class="nav-contact">
+            <div class="contact-item"><i class="fa fa-phone"></i> <a href="tel:+385976050419">+385976050419</a></div>
+            <div class="contact-item"><i class="fa fa-envelope"></i> <a href="mailto:info@buket3klika.hr">info@buket3klika.hr</a></div>
+        </div>
+        <div class="account-actions">
+            <button class="account-btn" aria-label="KorisniÄŤki raÄŤun">
+                <i class="fa-regular fa-user"></i>
+            </button>
         </div>
     </nav>
     <header class="hero">
@@ -36,85 +106,472 @@
             <img src="assets/bg_hero.jpg" alt="Rose Bouquet" class="hero-bg">
         </div>
         <div class="hero-content">
-            <h1 class="hero-title" style="color: var(--accent-red);">Više za vas blog</h1>
+            <h1 class="hero-title" style="color: var(--accent-red);">ViĹˇe za vas blog</h1>
+            <div class="hero-flower-icon">
+                <img src="assets/rose-logo.png" alt="Rose Icon">
+            </div>
+            
         </div>
     </header>
 
-    <main class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
-        <section class="product-grid grid-3 cols">
-            <!-- Article 1 -->
-            <article class="product-card" style="margin-bottom: 2rem;">
-                <div class="image-wrapper" style="height: 300px;">
-                    <a href="buket-crvenih-ruza-cijena.html">
-                        <img src="assets/prod_red.jpg" alt="Buket crvenih ruža cijena" style="height: 100%; object-fit: cover;">
-                    </a>
-                </div>
-                <div class="product-info" style="justify-content: center; padding: 1.5rem;">
-                    <a href="buket-crvenih-ruza-cijena.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center;">1. Buket crvenih ruža cijena</a>
-                </div>
-            </article>
-            <!-- Article 2 -->
-            <article class="product-card" style="margin-bottom: 2rem;">
-                <div class="image-wrapper" style="height: 300px;">
-                    <a href="poklon-za-valentinovo-zagreb.html">
-                        <img src="assets/Gemini_Generated_Image_6satt66satt66sat.webp" alt="Poklon za Valentinovo Zagreb" style="height: 100%; object-fit: cover;">
-                    </a>
-                </div>
-                <div class="product-info" style="justify-content: center; padding: 1.5rem;">
-                    <a href="poklon-za-valentinovo-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center;">2. Poklon za Valentinovo Zagreb</a>
-                </div>
-            </article>
-            <!-- Article 3 -->
-            <article class="product-card" style="margin-bottom: 2rem;">
-                <div class="image-wrapper" style="height: 300px;">
-                    <a href="101-ruza-dostava.html">
-                        <img src="assets/Gemini_Generated_Image_o3fwspo3fwspo3fw.webp" alt="101 ruža dostava" style="height: 100%; object-fit: cover;">
-                    </a>
-                </div>
-                <div class="product-info" style="justify-content: center; padding: 1.5rem;">
-                    <a href="101-ruza-dostava.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center;">3. 101 ruža dostava</a>
-                </div>
-            </article>
-            <!-- Add more articles here as in the original -->
-            <article class="product-card" style="margin-bottom: 2rem;">
-                <div class="image-wrapper" style="height: 300px;">
-                    <a href="bijele-ruze-znacenje-i-dostava.html">
-                        <img src="assets/Gemini_Generated_Image_9a7jgz9a7jgz9a7j.webp" alt="Bijele ruže značenje" style="height: 100%; object-fit: cover;">
-                    </a>
-                </div>
-                <div class="product-info" style="justify-content: center; padding: 1.5rem;">
-                    <a href="bijele-ruze-znacenje-i-dostava.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center;">4. Bijele ruže značenje</a>
-                </div>
-            </article>
-            <!-- Article 5 -->
-            <article class="product-card" style="margin-bottom: 2rem;">
-                <div class="image-wrapper" style="height: 300px;">
-                    <a href="savjeti-za-odrzavanje-ruza.html">
-                        <img src="assets/grand_roze.png" alt="Održavanje ruža" style="height: 100%; object-fit: cover;">
-                    </a>
-                </div>
-                <div class="product-info" style="justify-content: center; padding: 1.5rem;">
-                    <a href="savjeti-za-odrzavanje-ruza.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center;">5. Savjeti za održavanje ruža</a>
-                </div>
-            </article>
-            <!-- Article 6 -->
-            <article class="product-card" style="margin-bottom: 2rem;">
-                <div class="image-wrapper" style="height: 300px;">
-                    <a href="brza-dostava-cvijeca-na-adresu.html">
-                        <img src="assets/bg_hero.jpg" alt="Brza dostava cvijeća" style="height: 100%; object-fit: cover;">
-                    </a>
-                </div>
-                <div class="product-info" style="justify-content: center; padding: 1.5rem;">
-                    <a href="brza-dostava-cvijeca-na-adresu.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center;">6. Brza dostava cvijeća</a>
-                </div>
-            </article>
+<<<<<<< HEAD
+    
+<main class="container" style="padding-top: 12rem;">
+    <section class="product-grid grid-3 cols">
+        
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="buket-crvenih-ruza-cijena.html">
+                <img src="assets/prod_red.jpg" alt="1. Buket crvenih ruĹľa cijena" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="buket-crvenih-ruza-cijena.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">1. Buket crvenih ruĹľa cijena</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="poklon-za-valentinovo-zagreb.html">
+                <img src="assets/Gemini_Generated_Image_6satt66satt66sat.webp" alt="2. Poklon za Valentinovo Zagreb" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="poklon-za-valentinovo-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">2. Poklon za Valentinovo Zagreb</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="101-ruza-dostava.html">
+                <img src="assets/Gemini_Generated_Image_o3fwspo3fwspo3fw.webp" alt="3. 101 ruĹľa dostava" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="101-ruza-dostava.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">3. 101 ruĹľa dostava</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="cvjecarna-zagreb-online.html">
+                <img src="assets/Snimka zaslona 2026-04-22 003719.webp" alt="4. CvjeÄ‡arna Zagreb online" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="cvjecarna-zagreb-online.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">4. CvjeÄ‡arna Zagreb online</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="savjeti-za-odrzavanje-ruza.html">
+                <img src="assets/grand_roze.png" alt="5. Kako produljiti svjeĹľinu ruĹľa: Savjeti struÄŤnjaka" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="savjeti-za-odrzavanje-ruza.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">5. Kako produljiti svjeĹľinu ruĹľa: Savjeti struÄŤnjaka</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="brza-dostava-cvijeca-na-adresu.html">
+                <img src="assets/pravoj_bijele_ruze.png" alt="6. Brza dostava cvijeÄ‡a na adresu" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="brza-dostava-cvijeca-na-adresu.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">6. Brza dostava cvijeÄ‡a na adresu</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="bijele-ruze-znacenje-i-dostava.html">
+                <img src="assets/white_17.webp" alt="7. Bijele ruĹľe znaÄŤenje i dostava" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="bijele-ruze-znacenje-i-dostava.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">7. Bijele ruĹľe znaÄŤenje i dostava</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="rodendanski-buket-ruza-zagreb.html">
+                <img src="assets/Gemini_Generated_Image_ca1hgkca1hgkca1h.webp" alt="8. RoÄ‘endanski buket ruĹľa Zagreb" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="rodendanski-buket-ruza-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">8. RoÄ‘endanski buket ruĹľa Zagreb</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="luksuzni-buketi-zagreb.html">
+                <img src="assets/purple_17.webp" alt="9. Luksuzni buketi Zagreb" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="luksuzni-buketi-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">9. Luksuzni buketi Zagreb</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="postani-majstor-romantike.html">
+                <img src="assets/prod_orange_new.png" alt="10. Postani Majstor Romantike" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="postani-majstor-romantike.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">10. Postani Majstor Romantike</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="slanje-ruza-u-ured-zagreb.html">
+                <img src="assets/Gemini_Generated_Image_ctos43ctos43ctos.webp" alt="11. Slanje Vrhunskih RuĹľa u Ured" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="slanje-ruza-u-ured-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">11. Slanje Vrhunskih RuĹľa u Ured</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="rodendansko-iznenadenje-99-ruza.html">
+                <img src="assets/prod_huge.jpg" alt="12. RoÄ‘endansko IznenaÄ‘enje: 99 RuĹľa" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="rodendansko-iznenadenje-99-ruza.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">12. RoÄ‘endansko IznenaÄ‘enje: 99 RuĹľa</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="ruze-u-kutiji-flower-box-zagreb.html">
+                <img src="assets/Snimka zaslona 2026-04-22 015034.webp" alt="13. RuĹľe u kutiji Zagreb" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="ruze-u-kutiji-flower-box-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">13. RuĹľe u kutiji Zagreb</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="dostava-ruza-zagreb.html">
+                <img src="assets/Gemini_Generated_Image_yewortyewortyewo.png" alt="14. Dostava ruĹľa Zagreb" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="dostava-ruza-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">14. Dostava ruĹľa Zagreb</a>
+        </div>
+    </article>
+    
+    </section>
+
+        <!-- SEO Links Section -->
+        <section class="seo-links-section mt-lg" style="max-width: 1200px; margin: 3rem auto; padding: 2rem; border-top: 1px solid #eee;">
+            <h3 style="font-family: var(--font-heading); color: var(--text-primary); margin-bottom: 1.5rem; font-size: 1.5rem;">Naša ponuda i savjeti</h3>
+            <div class="seo-links-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+                <a href="/101-ruza-dostava.html" style="color: var(--accent-red); text-decoration: none;">101 ruža dostava</a>
+                <a href="/bijele-ruze-znacenje-i-dostava.html" style="color: var(--accent-red); text-decoration: none;">Bijele ruže značenje</a>
+                <a href="/brza-dostava-cvijeca-na-adresu.html" style="color: var(--accent-red); text-decoration: none;">Brza dostava cvijeća</a>
+                <a href="/buket-crvenih-ruza-cijena.html" style="color: var(--accent-red); text-decoration: none;">Buket crvenih ruža cijena</a>
+                <a href="/cvjecarna-zagreb-online.html" style="color: var(--accent-red); text-decoration: none;">Online cvjećarnica Zagreb</a>
+                <a href="/dostava-ruza-zagreb.html" style="color: var(--accent-red); text-decoration: none;">Dostava ruža Zagreb</a>
+                <a href="/luksuzni-buketi-zagreb.html" style="color: var(--accent-red); text-decoration: none;">Luksuzni buketi Zagreb</a>
+                <a href="/poklon-za-valentinovo-zagreb.html" style="color: var(--accent-red); text-decoration: none;">Poklon za Valentinovo</a>
+                <a href="/postani-majstor-romantike.html" style="color: var(--accent-red); text-decoration: none;">Postani majstor romantike</a>
+                <a href="/rodendanski-buket-ruza-zagreb.html" style="color: var(--accent-red); text-decoration: none;">Rođendanski buket ruža</a>
+                <a href="/rodendansko-iznenadenje-99-ruza.html" style="color: var(--accent-red); text-decoration: none;">Rođendansko iznenađenje</a>
+                <a href="/ruze-u-kutiji-flower-box-zagreb.html" style="color: var(--accent-red); text-decoration: none;">Ruže u kutiji</a>
+                <a href="/savjeti-za-odrzavanje-ruza.html" style="color: var(--accent-red); text-decoration: none;">Savjeti za održavanje</a>
+                <a href="/slanje-ruza-u-ured-zagreb.html" style="color: var(--accent-red); text-decoration: none;">Slanje ruža u ured</a>
+            </div>
         </section>
     </main>
+=======
+    
+<main class="container" style="padding-top: 12rem;">
+    <section class="product-grid grid-3 cols">
+        
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="buket-crvenih-ruza-cijena.html">
+                <img src="assets/prod_red.jpg" alt="1. Buket crvenih ruĹľa cijena" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="buket-crvenih-ruza-cijena.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">1. Buket crvenih ruĹľa cijena</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="poklon-za-valentinovo-zagreb.html">
+                <img src="assets/Gemini_Generated_Image_6satt66satt66sat.webp" alt="2. Poklon za Valentinovo Zagreb" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="poklon-za-valentinovo-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">2. Poklon za Valentinovo Zagreb</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="101-ruza-dostava.html">
+                <img src="assets/Gemini_Generated_Image_o3fwspo3fwspo3fw.webp" alt="3. 101 ruĹľa dostava" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="101-ruza-dostava.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">3. 101 ruĹľa dostava</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="cvjecarna-zagreb-online.html">
+                <img src="assets/Snimka zaslona 2026-04-22 003719.webp" alt="4. CvjeÄ‡arna Zagreb online" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="cvjecarna-zagreb-online.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">4. CvjeÄ‡arna Zagreb online</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="savjeti-za-odrzavanje-ruza.html">
+                <img src="assets/grand_roze.png" alt="5. Kako produljiti svjeĹľinu ruĹľa: Savjeti struÄŤnjaka" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="savjeti-za-odrzavanje-ruza.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">5. Kako produljiti svjeĹľinu ruĹľa: Savjeti struÄŤnjaka</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="brza-dostava-cvijeca-na-adresu.html">
+                <img src="assets/pravoj_bijele_ruze.png" alt="6. Brza dostava cvijeÄ‡a na adresu" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="brza-dostava-cvijeca-na-adresu.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">6. Brza dostava cvijeÄ‡a na adresu</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="bijele-ruze-znacenje-i-dostava.html">
+                <img src="assets/white_17.webp" alt="7. Bijele ruĹľe znaÄŤenje i dostava" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="bijele-ruze-znacenje-i-dostava.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">7. Bijele ruĹľe znaÄŤenje i dostava</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="rodendanski-buket-ruza-zagreb.html">
+                <img src="assets/Gemini_Generated_Image_ca1hgkca1hgkca1h.webp" alt="8. RoÄ‘endanski buket ruĹľa Zagreb" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="rodendanski-buket-ruza-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">8. RoÄ‘endanski buket ruĹľa Zagreb</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="luksuzni-buketi-zagreb.html">
+                <img src="assets/purple_17.webp" alt="9. Luksuzni buketi Zagreb" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="luksuzni-buketi-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">9. Luksuzni buketi Zagreb</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="postani-majstor-romantike.html">
+                <img src="assets/prod_orange_new.png" alt="10. Postani Majstor Romantike" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="postani-majstor-romantike.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">10. Postani Majstor Romantike</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="slanje-ruza-u-ured-zagreb.html">
+                <img src="assets/Gemini_Generated_Image_ctos43ctos43ctos.webp" alt="11. Slanje Vrhunskih RuĹľa u Ured" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="slanje-ruza-u-ured-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">11. Slanje Vrhunskih RuĹľa u Ured</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="rodendansko-iznenadenje-99-ruza.html">
+                <img src="assets/prod_huge.jpg" alt="12. RoÄ‘endansko IznenaÄ‘enje: 99 RuĹľa" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="rodendansko-iznenadenje-99-ruza.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">12. RoÄ‘endansko IznenaÄ‘enje: 99 RuĹľa</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="ruze-u-kutiji-flower-box-zagreb.html">
+                <img src="assets/Snimka zaslona 2026-04-22 015034.webp" alt="13. RuĹľe u kutiji Zagreb" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="ruze-u-kutiji-flower-box-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">13. RuĹľe u kutiji Zagreb</a>
+        </div>
+    </article>
+    
+    <article class="product-card" style="margin-bottom: 2rem;">
+        <div class="image-wrapper" style="height: 300px;">
+            <a href="dostava-ruza-zagreb.html">
+                <img src="assets/Gemini_Generated_Image_yewortyewortyewo.png" alt="14. Dostava ruĹľa Zagreb" style="height: 100%; object-fit: cover;">
+            </a>
+        </div>
+        <div class="product-info" style="justify-content: center; padding: 1.5rem;">
+            <a href="dostava-ruza-zagreb.html" class="btn-primary" style="text-decoration: none; display: inline-block; width: 100%; text-align: center; white-space: normal; line-height: 1.4;">14. Dostava ruĹľa Zagreb</a>
+        </div>
+    </article>
+    
+    </section>
+</main>
+>>>>>>> decf7eb5ad4c26383c86a5f9c7a5f68d50ada07f
 
-    <footer class="site-footer">
+
+    <footer class="site-footer mt-lg">
+        <div class="social-links-container">
+            <div class="social-links">
+                <a href="https://www.pinterest.com/buket3klika/" target="_blank"><i class="fa-brands fa-pinterest-p"></i></a>
+                <a href="https://www.tiktok.com/@buket3klika" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="http://www.youtube.com/@buket3klika" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            <div class="little-red-dot"></div>
+        </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Buket3klika. Sva prava pridržana.</p>
+            <div class="footer-nav">
+                <a href="#" id="admin-heart-link" class="admin-heart-icon"><i class="fa-solid fa-heart"></i></a>
+                <a href="#" class="footer-link" data-type="sitemap">Mapa weba</a>
+                <a href="#" class="footer-link" data-type="accessibility">Izjava o pristupaÄŤnosti</a>
+                <a href="#" class="footer-link" data-type="terms">Uvjeti koriĹˇtenja</a>
+                <a href="#" class="footer-link" data-type="privacy">Pravila privatnosti</a>
+            </div>
         </div>
     </footer>
+    <!-- Order Tracking Modal -->
+    <div id="tracking-modal" class="modal">
+        <div class="modal-bg" onclick="document.getElementById('tracking-modal').classList.remove('active'); document.body.classList.remove('modal-open');"></div>
+        <div class="modal-content tracking-modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Pratite svoju narudĹľbu</h2>
+            <p class="modal-subtitle">Unesite kod svoje narudĹľbe kako biste vidjeli trenutni status.</p>
+            
+            <div class="tracking-input-group">
+                <input type="text" id="tracking-code-input" placeholder="Npr. BK-123456" aria-label="Kod narudĹľbe">
+                <button id="search-tracking-btn" class="btn-primary">Prati</button>
+            </div>
+
+            <div id="tracking-status-container" class="tracking-status-container hidden">
+                <div class="tracking-progress-bar">
+                    <div class="progress-step active" id="step-received">
+                        <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+                        <span>Zaprimljeno</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" id="step-processing">
+                        <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+                        <span>U izradi</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" id="step-delivered">
+                        <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+                        <span>Dostavljeno</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Hidden Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-bg" onclick="document.getElementById('admin-modal').classList.remove('active'); document.body.classList.remove('modal-open');"></div>
+        <div class="modal-content admin-modal-content" style="padding-top: 4rem !important;">
+            <!-- Login View -->
+            <div id="admin-login-view" style="position: relative; width: 100%; height: 100%;">
+                <button class="close-modal" id="close-admin-modal"><i class="fa-solid fa-xmark"></i></button>
+                <h2>Admin Prijava</h2>
+                <div class="admin-login-form">
+                    <input type="text" id="admin-username" placeholder="KorisniÄŤko ime">
+                    <div class="password-wrapper">
+                        <input type="password" id="admin-password" placeholder="Lozinka">
+                        <i class="fa-regular fa-eye" id="toggle-password"></i>
+                    </div>
+                    <label class="remember-me">
+                        <input type="checkbox" id="admin-remember"> Spremi lozinku
+                    </label>
+                    <button id="admin-login-btn" class="btn-primary">Prijavi se</button>
+                </div>
+            </div>
+
+            <!-- Dashboard View -->
+            <div id="admin-dashboard-view" class="hidden">
+                <div class="admin-dashboard-header">
+                    <h2>Sve narudĹľbe</h2>
+                    <button id="admin-logout-btn" class="btn-logout">Odjavi se</button>
+                </div>
+                <div class="orders-list" id="admin-orders-list">
+                    <!-- Orders will be injected here -->
+                    <p>UÄŤitavanje narudĹľbi...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Warning Modal -->
+    <div id="warning-modal" class="modal">
+        <div class="modal-bg" onclick="closeWarning()"></div>
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="delivery-card">
+                <i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; color: var(--accent-red); margin-bottom: 1.5rem;"></i>
+                <h2>Dostava ograniÄŤena</h2>
+                <p id="warning-text" style="margin-bottom: 2rem; line-height: 1.6; color: var(--text-secondary);">IspriÄŤavamo se, ali kupnja i dostava su trenutno dozvoljeni samo u Gradu Zagrebu i ZagrebaÄŤkoj Ĺľupaniji.</p>
+                <button class="btn-next" onclick="closeWarning()" style="width: 100%;">U redu</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init({
+            publicKey: "UbquaRiMCWyLQpwEO",
+          });
+       })();
+    </script>
+    <script src="script.js?v=3.7"></script>
 </body>
 </html>
+
