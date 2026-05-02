@@ -44,9 +44,29 @@ const blogMainHtml = `
 
 const indexHtml = fs.readFileSync('index.html', 'utf8');
 let newHtml = indexHtml.replace(/<main class="container">[\s\S]*?<\/main>/, blogMainHtml);
+// Remove the redundant SEO links section from the blog page
+newHtml = newHtml.replace(/<section class="seo-links-section[\s\S]*?<\/section>/, '');
 newHtml = newHtml.replace(/<title>.*?<\/title>/, `<title>Više za vas - Blog - Buket3klika</title>`);
 newHtml = newHtml.replace(/<h1 class="hero-title">.*?<\/h1>/, `<h1 class="hero-title" style="color: var(--accent-red);">Više za vas blog</h1>`);
 newHtml = newHtml.replace(/<p class="hero-subtitle">[\s\S]*?<\/p>/, ``);
+newHtml = newHtml.replace(/RuĹle/g, 'Ruže');
+newHtml = newHtml.replace(/ruĹle/g, 'ruže');
+newHtml = newHtml.replace(/ruĹLa/g, 'ruža');
+newHtml = newHtml.replace(/ruĹla/g, 'ruža');
+newHtml = newHtml.replace(/cvijeÄ‡a/g, 'cvijeća');
+newHtml = newHtml.replace(/cvjeÄ‡arnica/g, 'cvjećarnica');
+newHtml = newHtml.replace(/ViĹˇe/g, 'Više');
+newHtml = newHtml.replace(/najbrĹľu/g, 'najbržu');
+newHtml = newHtml.replace(/ÄŤesta/g, 'Česta');
+newHtml = newHtml.replace(/KorisniÄŤki raÄŤun/g, 'Korisnički račun');
+newHtml = newHtml.replace(/RoÄ‘endanski/g, 'Rođendanski');
+newHtml = newHtml.replace(/iznenadenje/g, 'iznenađenje');
+newHtml = newHtml.replace(/narudĹľbu/g, 'narudžbu');
+newHtml = newHtml.replace(/koriĹˇtenja/g, 'korištenja');
+newHtml = newHtml.replace(/pristupaÄŤnosti/g, 'pristupačnosti');
+newHtml = newHtml.replace(/IspriÄŤavamo/g, 'Ispričavamo');
+newHtml = newHtml.replace(/Ĺľupaniji/g, 'županiji');
+newHtml = newHtml.replace(//g, ' '); // Remove replacement characters
 
 fs.writeFileSync('blog.html', newHtml);
 console.log('Successfully generated blog.html with 14 aligned posts');
