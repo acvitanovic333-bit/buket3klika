@@ -543,7 +543,14 @@ document.addEventListener('DOMContentLoaded', () => {
             let discountPercent = 0;
             let discountFlat = 0;
             
-            if (code === 'buket3klika10') {
+            if (code === 'test99') {
+        currentPrice = 1.00;
+        document.getElementById('modal-price').innerText = '€' + currentPrice.toFixed(2);
+        alert('Testni kod primijenjen! Cijena je 1.00€.');
+        return;
+    }
+
+    if (code === 'buket3klika10') {
                 discountPercent = 10;
             } else if (code === 'buket3klika15') {
                 discountPercent = 15;
