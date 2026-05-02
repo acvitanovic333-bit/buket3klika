@@ -66,7 +66,7 @@ newHtml = newHtml.replace(/koriĹˇtenja/g, 'korištenja');
 newHtml = newHtml.replace(/pristupaÄŤnosti/g, 'pristupačnosti');
 newHtml = newHtml.replace(/IspriÄŤavamo/g, 'Ispričavamo');
 newHtml = newHtml.replace(/Ĺľupaniji/g, 'županiji');
-newHtml = newHtml.replace(//g, ' '); // Remove replacement characters
+newHtml = newHtml.replace(/\ufffd/g, ' '); // Remove replacement characters
 
 fs.writeFileSync('blog.html', newHtml);
 console.log('Successfully generated blog.html with 14 aligned posts');
