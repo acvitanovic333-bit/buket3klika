@@ -844,13 +844,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     };
 
                     emailjs.send('service_eoswglo', 'template_1f1nsi8', templateParams)
-                        .then(function(response) {
-                           console.log('SUCCESS!', response.status, response.text);
-                           sendEmailBtn.innerHTML = '<i class="fa-solid fa-check"></i> Poslano';
-                           emailInput.disabled = true;
-                           emailSentMsg.classList.remove('hidden');
-                           emailSentMsg.innerHTML = `Potvrda je uspješno poslana na <strong>${email}</strong>!<br><small>Hvala što koristite Buket3Klika.</small>`;
-                        }, function(error) {
+                          .then(function(response) {
+                             console.log('Kupcu poslano:', response.status, response.text);
+                             
+                             // SEND DUPLICATE TO ADMIN
+                             const adminParams = { ...templateParams, email: 'prodaja.buket3klika@gmail.com' };
+                             emailjs.send('service_eoswglo', 'template_1f1nsi8', adminParams)
+                                .then(() => console.log('Adminu poslano!'))
+                                .catch(err => console.log('Greška admin mail:', err));
+                             
+                             sendEmailBtn.innerHTML = '<i class="fa-solid fa-check"></i> Poslano';
+                             sendEmailBtn.classList.add('success');
+                             sendEmailBtn.style.backgroundColor = 'var(--accent-green)';
+                             document.getElementById('email-sent-msg').classList.remove('hidden');
+                             setTimeout(() => {
+                                 sendEmailBtn.innerHTML = 'Pošalji podatke';
+                                 sendEmailBtn.classList.remove('success');
+                                 sendEmailBtn.style.backgroundColor = '';
+                                 document.getElementById('email-sent-msg').classList.add('hidden');
+                             }, 4000);, function(error) {
                            console.log('FAILED...', error);
                            alert('Greška pri slanju: ' + (error.text || 'Nepoznata greška') + '. Provjerite Service ID i Template ID.');
                            sendEmailBtn.disabled = false;
