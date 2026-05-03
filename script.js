@@ -348,11 +348,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p id="success-message">Hvala vam na narudžbi. Vaš buket će biti dostavljen u odabranom terminu.</p>
                     
                     <div class="order-confirmation-email">
-                        <p>Želite li potvrdu na email? (nije obavezno)</p>
+                                                <p style="font-weight: bold; color: var(--text-main); margin-bottom: 0.5rem; line-height: 1.4;">Molimo unesite podatke (obavezno):</p>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Email nam je potreban za slanje računa, a broj mobitela kako bi vas dostavljač mogao kontaktirati.</p>
                         <div class="email-input-group" style="display: flex; flex-direction: column; gap: 0.8rem;">
-                            <input type="email" id="confirm-email" placeholder="vaš@email.com" style="width: 100%;">
-                            <input type="tel" id="customer-phone" placeholder="Broj mobitela za vozača" style="width: 100%; padding: 0.8rem; border: 1px solid #ccc; border-radius: 8px; font-family: var(--font-body); font-size: 1rem;">
-                            <button id="send-email-btn" class="btn-secondary" style="width: 100%;">Pošalji</button>
+                            <input type="email" id="confirm-email" placeholder="vaš@email.com" style="width: 100%;" required>
+                            <input type="tel" id="customer-phone" placeholder="Vaš broj mobitela" style="width: 100%; padding: 0.8rem; border: 1px solid #ccc; border-radius: 8px; font-family: var(--font-body); font-size: 1rem;" required>
+                            <button id="send-email-btn" class="btn-primary" style="width: 100%;">Pošalji i potvrdi</button>
                         </div>
                         <p id="email-sent-msg" class="hidden" style="color: var(--accent-green); font-size: 0.9rem; margin-top: 0.5rem;">Potvrda poslana!</p>
                     </div>
