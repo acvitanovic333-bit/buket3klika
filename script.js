@@ -862,7 +862,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                  sendEmailBtn.classList.remove('success');
                                  sendEmailBtn.style.backgroundColor = '';
                                  document.getElementById('email-sent-msg').classList.add('hidden');
-                             }, 4000);, function(error) {
+                             }, 4000); }, function(error) {
                            console.log('FAILED...', error);
                            alert('Greška pri slanju: ' + (error.text || 'Nepoznata greška') + '. Provjerite Service ID i Template ID.');
                            sendEmailBtn.disabled = false;
