@@ -349,9 +349,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div class="order-confirmation-email">
                         <p>Želite li potvrdu na email? (nije obavezno)</p>
-                        <div class="email-input-group">
-                            <input type="email" id="confirm-email" placeholder="vaš@email.com">
-                            <button id="send-email-btn" class="btn-secondary">Pošalji</button>
+                        <div class="email-input-group" style="display: flex; flex-direction: column; gap: 0.8rem;">
+                            <input type="email" id="confirm-email" placeholder="vaš@email.com" style="width: 100%;">
+                            <input type="tel" id="customer-phone" placeholder="Broj mobitela za vozača" style="width: 100%; padding: 0.8rem; border: 1px solid #ccc; border-radius: 8px; font-family: var(--font-body); font-size: 1rem;">
+                            <button id="send-email-btn" class="btn-secondary" style="width: 100%;">Pošalji</button>
                         </div>
                         <p id="email-sent-msg" class="hidden" style="color: var(--accent-green); font-size: 0.9rem; margin-top: 0.5rem;">Potvrda poslana!</p>
                     </div>
