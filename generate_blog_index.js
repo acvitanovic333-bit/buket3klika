@@ -9,7 +9,11 @@ const data = [
   { file: "brza-dostava-cvijeca-na-adresu.html", title: "6. Brza dostava cvijeća na adresu", img: "pravoj_bijele_ruze.png" },
   { file: "bijele-ruze-znacenje-i-dostava.html", title: "7. Bijele ruže značenje i dostava", img: "white_17.webp" },
   { file: "rodendanski-buket-ruza-zagreb.html", title: "8. Rođendanski buket ruža Zagreb", img: "Gemini_Generated_Image_ca1hgkca1hgkca1h.webp" },
-  { file: "luksuzni-buketi-zagreb.html", title: "9. Luksuzni buketi Zagreb", img: "purple_17.webp" }
+  { file: "luksuzni-buketi-zagreb.html", title: "9. Luksuzni buketi Zagreb", img: "purple_17.webp" },
+  { file: "dostava-ruza-zagreb.html", title: "10. Dostava ruža Zagreb", img: "prod_orange_new.png" },
+  { file: "postani-majstor-romantike.html", title: "11. Postani majstor romantike", img: "Gemini_Generated_Image_2jj5zl2jj5zl2jj5 (1).webp" },
+  { file: "rodendansko-iznenadenje-99-ruza.html", title: "12. Rođendansko iznenađenje 99 ruža", img: "prod_huge.jpg" },
+  { file: "slanje-ruza-u-ured-zagreb.html", title: "13. Slanje ruža u ured Zagreb", img: "rose-logo.png" }
 ];
 
 let itemsHtml = '';
